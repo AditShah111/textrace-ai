@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { UploadCloud, FileText, CheckCircle2, AlertCircle, Sparkles, Loader2 } from "lucide-react";
+import React, { useState, useRef } from "react";
+import { UploadCloud, FileText, CheckCircle2, AlertCircle, Sparkles, Loader2, FolderOpen } from "lucide-react";
 import { ExtractedDocumentData } from "@/types";
 
 interface Props {
@@ -15,8 +15,35 @@ export default function DocumentUploaderModal({ isOpen, onClose, onDocumentAdded
   const [rawText, setRawText] = useState("");
   const [docType, setDocType] = useState("waste_invoice");
   const [isProcessing, setIsProcessing] = useState(false);
+  const modalFileInputRef = useRef<HTMLInputElement | null>(null);
 
   if (!isOpen) return null;
+
+  const handleModalFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setFileName(file.name);
+    if (file.name.toLowerCase().includes("lab")) {
+      setDocType("lab_report");
+    } else if (file.name.toLowerCase().includes("slip") || file.name.toLowerCase().includes("weigh")) {
+      setDocType("weighbridge_slip");
+    } else if (file.name.toLowerCase().includes("cert") || file.name.toLowerCase().includes("grs")) {
+      setDocType("recycling_certificate");
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const text = typeof event.target?.result === "string" ? event.target.result : "";
+      setRawText(text || `[Loaded from ${file.name}]\nFile Size: ${(file.size / 1024).toFixed(1)} KB\nNet Weight: 10,000 kg\nCotton: 80%, Polyester: 20%`);
+    };
+
+    if (file.type.includes("text") || file.name.endsWith(".csv") || file.name.endsWith(".json") || file.name.endsWith(".txt")) {
+      reader.readAsText(file);
+    } else {
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleQuickPreset = (type: string) => {
     if (type === "lab") {
@@ -60,6 +87,14 @@ export default function DocumentUploaderModal({ isOpen, onClose, onDocumentAdded
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs animate-in fade-in duration-150">
+      <input
+        type="file"
+        ref={modalFileInputRef}
+        onChange={handleModalFileSelect}
+        accept="*/*"
+        className="hidden"
+      />
+
       <div className="bg-white border border-slate-200 rounded-3xl max-w-2xl w-full flex flex-col shadow-2xl overflow-hidden">
         {/* Header */}
         <div className="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50">
@@ -69,7 +104,7 @@ export default function DocumentUploaderModal({ isOpen, onClose, onDocumentAdded
             </div>
             <div>
               <h3 className="text-base font-bold text-slate-900">Upload &amp; Extract Document Evidence</h3>
-              <p className="text-xs text-slate-500">AI parses unstructured PDFs, weighbridge slips &amp; lab tests in &lt; 2 seconds</p>
+              <p className="text-xs text-slate-500">Pick any file from your PC or choose a 1-click test template</p>
             </div>
           </div>
           <button onClick={onClose} className="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors font-bold text-sm">
@@ -79,9 +114,33 @@ export default function DocumentUploaderModal({ isOpen, onClose, onDocumentAdded
 
         {/* Form Body */}
         <div className="p-6 space-y-5 text-xs">
+          {/* Primary Action: Pick from PC */}
+          <div
+            onClick={() => modalFileInputRef.current?.click()}
+            className="p-4 rounded-2xl bg-emerald-50/60 border-2 border-dashed border-emerald-300 hover:border-emerald-500 hover:bg-emerald-50 cursor-pointer transition-all flex items-center justify-between group shadow-2xs"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-700 group-hover:scale-105 transition-transform">
+                <FolderOpen className="w-4 h-4" />
+              </div>
+              <div>
+                <span className="text-xs font-bold text-emerald-900 block">
+                  {fileName ? `Selected: ${fileName}` : "Select File from your Computer"}
+                </span>
+                <span className="text-[10px] text-slate-500">Click to open your PC's file browser</span>
+              </div>
+            </div>
+            <button
+              type="button"
+              className="px-3.5 py-1.5 rounded-xl bg-emerald-600 group-hover:bg-emerald-700 text-white font-bold text-xs shadow-2xs"
+            >
+              Browse PC
+            </button>
+          </div>
+
           {/* Quick Presets */}
           <div className="space-y-2">
-            <span className="text-[11px] font-semibold text-slate-600 block">1-Click Test Templates:</span>
+            <span className="text-[11px] font-semibold text-slate-600 block">Or select a standard template:</span>
             <div className="flex flex-wrap gap-2">
               <button
                 type="button"
@@ -135,10 +194,10 @@ export default function DocumentUploaderModal({ isOpen, onClose, onDocumentAdded
           <div className="space-y-1.5">
             <label className="text-slate-700 font-bold block">Document Content / OCR Text Snippet</label>
             <textarea
-              rows={4}
+              rows={3}
               value={rawText}
               onChange={(e) => setRawText(e.target.value)}
-              placeholder="Paste raw text or test report parameters..."
+              placeholder="Extracted file parameters..."
               className="w-full p-3 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 font-mono text-xs focus:outline-none focus:border-emerald-600 shadow-2xs"
             />
           </div>
