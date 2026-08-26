@@ -1,0 +1,26 @@
+================================================================================
+LABORATORY QUANTITATIVE FIBER ANALYSIS REPORT (AATCC 20A / ISO 1833)
+REPORT NO: LAB-MISMATCH-990-FAIL
+ISSUER: SGS India Laboratory Services
+DATE: 23-AUG-2026
+================================================================================
+
+SAMPLE IDENTIFICATION: Shredded Pre-Consumer Mill Clips
+SUPPLIER DECLARED CLAIM: "100% Organic Pure Recycled Cotton"
+SUPPLIER REFERENCE: INV-SUR-1102
+
+--------------------------------------------------------------------------------
+LABORATORY TESTING RESULTS:
+--------------------------------------------------------------------------------
+FIBER TYPE                   FOUND RATIO        SUPPLIER DECLARED    VARIANCE / STATUS
+--------------------------------------------------------------------------------
+Cotton Fiber Content:        60.00%             100.00%              -40.00% [FAIL]
+Polyester (PET) Content:     40.00%             0.00%                +40.00% [FAIL]
+
+--------------------------------------------------------------------------------
+AUDIT ENGINE VERDICT:
+--------------------------------------------------------------------------------
+[CRITICAL ALERT] Material Blend Falsification Detected:
+The raw material contains 40.0% synthetic polyester despite being invoiced and traded as pure 100% cotton. 
+Audit Failed under FTC Green Guides & ISO 14021 Type II Environmental Labeling Rules.
+================================================================================

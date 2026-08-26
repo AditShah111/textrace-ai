@@ -1,0 +1,24 @@
+================================================================================
+DISPATCH RECONCILIATION & PRODUCTION GOODS RECEIVED NOTE (GRN)
+DOCUMENT REF: GRN-CLAIM-12500-MANIPULATED
+FACILITY: Apex Recycled Yarns Ltd, Erode, Tamil Nadu
+DATE: 24-AUG-2026
+================================================================================
+
+TRANSACTION SUMMARY:
+- Inbound Raw Textile Scrap Weighed: 9,920.00 KG (From Weighbridge WB-99014)
+- Raw Material Composition: 60.0% Cotton / 40.0% Polyester
+- CLAIMED RECYCLED YARN DISPATCH OUTPUT: 12,500.00 KG
+- Target Consignee: Global FastFashion Retailer
+
+--------------------------------------------------------------------------------
+MATERIAL BALANCE AUDIT ANOMALY:
+--------------------------------------------------------------------------------
+[CRITICAL ALERT] Conservation of Mass Violation:
+- Verified Inbound Input Mass: 9,920.00 KG
+- Claimed Outward Yarn Output: 12,500.00 KG
+- Phantom Mass Yield Discrepancy: +2,580.00 KG (+126.0% Recovery Rate)
+
+Under ISO 22095:2020 and thermodynamics principles, physical mechanical recycling cannot generate more yarn mass than raw input scrap. 
+This batch represents fraudulent credit fabrication. Zero Textile Recycling Credits (TRCs) minted.
+================================================================================

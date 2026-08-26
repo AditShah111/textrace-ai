@@ -1,0 +1,21 @@
+================================================================================
+CONTROL UNION CERTIFICATIONS - SCOPE CERTIFICATE INSPECTION
+CERTIFICATE NUMBER: GRS-CU-881920-EXP
+AUDIT BODY: Control Union Certifications B.V.
+================================================================================
+
+LICENSEE: Shree Textile Waste Traders, Surat, Gujarat
+STANDARD: Global Recycled Standard (GRS v4.0)
+
+CERTIFICATION DURATION:
+- Valid From: 01-JUL-2024
+- Valid Until: 30-JUN-2025
+- CERTIFICATE STATUS: EXPIRED (14 MONTHS PAST EXPIRATION)
+
+--------------------------------------------------------------------------------
+AUDIT FINDING:
+--------------------------------------------------------------------------------
+[CRITICAL ALERT] Non-Compliant Chain of Custody:
+The facility has attempted to trade 10,000 kg of post-industrial clipping scrap under an expired GRS Scope Certificate. 
+Transactions after 30-JUN-2025 are ineligible for Textile Recycling Credits (TRCs) or EU Digital Product Passport (DPP) compliance.
+================================================================================
