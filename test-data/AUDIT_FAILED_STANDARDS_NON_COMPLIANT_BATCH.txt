@@ -1,0 +1,51 @@
+================================================================================
+SUPPLY CHAIN AUDIT EVIDENCE PACKAGE: BATCH-2026-NON-COMPLIANT-990
+VERDICT: AUDIT FAILED — NON-COMPLIANT WITH AUDITING STANDARDS
+FACILITY: Shree Textile Waste Traders & Apex Recycled Yarns Ltd
+================================================================================
+
+[DOCUMENT 1: INBOUND RAW MATERIAL INVOICE]
+- Invoice Number: INV-SUR-1102
+- Issuing Entity: Shree Textile Waste Traders, Surat, Gujarat
+- Material Description: Shredded Pre-Consumer Cutting Clips
+- Invoiced Weight: 10,000.00 KG
+- Declared Blend: 60.0% Cotton / 40.0% Polyester (AATCC 20A Non-Verified)
+
+[DOCUMENT 2: WEIGHBRIDGE TRANSIT TERMINAL TICKET]
+- Weighbridge Slip: WB-TN-99014
+- Gross Scale Weight: 24,820.00 KG | Tare Weight: 14,900.00 KG
+- Net Received Weight: 9,920.00 KG (Transit Tare Variance: -80.00 KG)
+
+[DOCUMENT 3: SCOPE CERTIFICATE ATTACHMENT (CHAIN OF CUSTODY)]
+- Certification Standard: Textile Exchange Global Recycled Standard (GRS v4.0)
+- Scope Certificate Number: GRS-CU-881920-EXP
+- Certificate Validity: 01-JUL-2024 to 30-JUN-2025
+- CURRENT STATUS: EXPIRED (14 MONTHS EXPIRED)
+
+[DOCUMENT 4: FINISHED RECYCLED YARN DISPATCH (GRN)]
+- Dispatch Reference: GRN-CLAIM-12500-MANIPULATED
+- Producer Entity: Apex Recycled Yarns Ltd, Erode
+- Claimed Outward Yarn Output: 12,500.00 KG
+- Claimed Finished Composition: 95.0% Cotton / 5.0% Polyester
+
+--------------------------------------------------------------------------------
+AUDIT ENGINE FINDINGS — NON-COMPLIANCE BREAKDOWN:
+--------------------------------------------------------------------------------
+1. BREACH OF ISO 22095:2020 (CLAUSE 6.3 - MASS BALANCE RECONCILIATION):
+   - Net Verified Material Inbound: 9,920.00 KG
+   - Claimed Outward Recycled Output: 12,500.00 KG
+   - Discrepancy: +2,580.00 KG Phantom Yield (Implied Recovery Rate: 126.01%)
+   - Physical Rule: Mechanical spinning process loss is typically 14% to 20%. Output cannot physically exceed input.
+
+2. BREACH OF TEXTILE EXCHANGE GRS v4.0 (CHAIN OF CUSTODY VALIDITY):
+   - Attached Scope Certificate expired on 30-JUN-2025.
+   - Material processed under expired licenses cannot carry circularity claims or be tokenized into compliance credits.
+
+3. BREACH OF AATCC 20A / ISO 1833 (QUANTITATIVE FIBER BLEND INTEGRITY):
+   - Inbound waste contained 6,000 kg cotton (60%).
+   - Claimed yarn output of 12,500 kg @ 95% cotton requires 11,875 kg cotton.
+   - Unsubstantiated cotton deficit: -5,875.00 kg.
+
+AUDIT VERDICT:
+REJECTED. Batch quarantined in global registry. 0 Textile Recycling Credits (TRCs) minted.
+================================================================================
