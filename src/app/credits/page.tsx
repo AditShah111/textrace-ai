@@ -108,18 +108,18 @@ export default function RecyclingCreditsRegistryPage() {
   return (
     <div className="min-h-screen py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-10">
       {/* Top Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200">
         <div>
-          <div className="flex items-center gap-2 text-xs font-mono text-amber-400 mb-1">
-            <Coins className="w-4 h-4" />
+          <div className="flex items-center gap-2 text-xs font-mono text-amber-700 font-bold mb-1">
+            <Coins className="w-4 h-4 text-amber-600" />
             <span>ENTERPRISE CIRCULARITY CREDITS • VERIFIABLE MATERIAL REGISTRY</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
             Textile Recycling Credit (TRC) Registry
           </h1>
-          <p className="text-sm text-slate-400 mt-1 max-w-3xl">
+          <p className="text-sm text-slate-600 mt-1 max-w-3xl">
             Issuing, trading, and burning verifiable digital material credits backed by AI-audited lab specs &amp; mass-balance conservation. 
-            <strong className="text-slate-200"> 1 TRC = 1 kg of verified recycled textile fiber.</strong>
+            <strong className="text-slate-900"> 1 TRC = 1 kg of verified recycled textile fiber.</strong>
           </p>
         </div>
 
@@ -127,7 +127,7 @@ export default function RecyclingCreditsRegistryPage() {
           <button
             onClick={handleMintSampleBatch}
             disabled={isMintingLive}
-            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-emerald-500 to-teal-500 hover:from-amber-400 hover:to-teal-400 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 flex items-center gap-2 transition-all hover:scale-105 disabled:opacity-50"
+            className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-sm flex items-center gap-2 transition-all hover:scale-105 disabled:opacity-50"
           >
             {isMintingLive ? (
               <>
@@ -136,7 +136,7 @@ export default function RecyclingCreditsRegistryPage() {
               </>
             ) : (
               <>
-                <Coins className="w-4 h-4" />
+                <Coins className="w-4 h-4 text-amber-400" />
                 <span>Mint TRCs from Audited Batch</span>
               </>
             )}
@@ -144,145 +144,150 @@ export default function RecyclingCreditsRegistryPage() {
         </div>
       </div>
 
-      {/* Mechanism Visualizer: Verification -> Credit Issuance & Burn */}
-      <div className="glass-panel p-6 sm:p-8 rounded-3xl border-slate-800 space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800/80 pb-4">
+      {/* Mechanism Visualizer */}
+      <div className="bg-white border border-slate-200 p-6 sm:p-8 rounded-3xl space-y-6 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-amber-400" />
-            <h3 className="text-base font-bold text-white">Continuous Verification &amp; Credit Issuance Protocol</h3>
+            <Sparkles className="w-5 h-5 text-amber-600" />
+            <h3 className="text-base font-bold text-slate-900">Continuous Verification &amp; Credit Issuance Protocol</h3>
           </div>
-          <span className="text-xs font-mono text-emerald-400 bg-emerald-950/80 px-2.5 py-1 rounded-md border border-emerald-500/20">
+          <span className="text-xs font-mono text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200 font-bold">
             Zero Double-Counting Architecture
           </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4 text-xs">
           {/* Step 1 */}
-          <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
-            <span className="text-[10px] font-mono uppercase text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded">
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+            <span className="text-[10px] font-mono uppercase text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded font-bold">
               1. AI Document Ingestion
             </span>
-            <h4 className="font-bold text-white text-sm">Lab &amp; Spec Extraction</h4>
-            <p className="text-slate-400 leading-relaxed">
+            <h4 className="font-bold text-slate-900 text-sm">Lab &amp; Spec Extraction</h4>
+            <p className="text-slate-600 leading-relaxed">
               AI parses raw mill invoices (10,000 kg), weighbridge slips (9,920 kg net), and SGS fiber composition reports (78.4% cotton).
             </p>
           </div>
 
           {/* Step 2 */}
-          <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
-            <span className="text-[10px] font-mono uppercase text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded">
-              2. Conservation of Mass Audit
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+            <span className="text-[10px] font-mono uppercase text-cyan-800 bg-cyan-100 px-2 py-0.5 rounded font-bold">
+              2. Conservation of Mass
             </span>
-            <h4 className="font-bold text-white text-sm">Tolerance Reconciliation</h4>
-            <p className="text-slate-400 leading-relaxed">
+            <h4 className="font-bold text-slate-900 text-sm">Tolerance Reconciliation</h4>
+            <p className="text-slate-600 leading-relaxed">
               Engine subtracts spinning loss (-1,720 kg) and validates exact 82.66% recovery rate with zero tolerance for phantom mass.
             </p>
           </div>
 
           {/* Step 3 */}
-          <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
-            <span className="text-[10px] font-mono uppercase text-amber-400 bg-amber-950/80 px-2 py-0.5 rounded">
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+            <span className="text-[10px] font-mono uppercase text-amber-800 bg-amber-100 px-2 py-0.5 rounded font-bold">
               3. Token Minting
             </span>
-            <h4 className="font-bold text-white text-sm">Cryptographic TRC Mint</h4>
-            <p className="text-slate-400 leading-relaxed">
-              Mints 8,200 TRCs with immutable serial numbers (<code>#00001 - #08200</code>) and SHA-256 batch hash into recycler wallet.
+            <h4 className="font-bold text-slate-900 text-sm">Cryptographic TRC Mint</h4>
+            <p className="text-slate-600 leading-relaxed">
+              Mints dynamic TRCs with immutable serial numbers and SHA-256 batch hash into recycler wallet.
             </p>
           </div>
 
           {/* Step 4 */}
-          <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
-            <span className="text-[10px] font-mono uppercase text-purple-400 bg-purple-950/80 px-2 py-0.5 rounded">
-              4. B2B Allocation &amp; Custody
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+            <span className="text-[10px] font-mono uppercase text-purple-800 bg-purple-100 px-2 py-0.5 rounded font-bold">
+              4. B2B Allocation
             </span>
-            <h4 className="font-bold text-white text-sm">Brand Ownership Transfer</h4>
-            <p className="text-slate-400 leading-relaxed">
-              Recycler transfers verified TRCs to garment brand (Nordic EcoWear) to back their sustainability claims on garment hangtags.
+            <h4 className="font-bold text-slate-900 text-sm">Brand Custody Transfer</h4>
+            <p className="text-slate-600 leading-relaxed">
+              Recycler transfers verified TRCs to garment brand (Nordic EcoWear) to back circularity claims on garment hangtags.
             </p>
           </div>
 
           {/* Step 5 */}
-          <div className="p-4 rounded-2xl bg-amber-950/30 border border-amber-500/40 space-y-2">
-            <span className="text-[10px] font-mono uppercase text-amber-300 bg-amber-500/20 px-2 py-0.5 rounded font-bold">
-              5. Permanent Retirement &amp; Burn
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+            <span className="text-[10px] font-mono uppercase text-red-800 bg-red-100 px-2 py-0.5 rounded font-bold">
+              5. Final Burn &amp; Retire
             </span>
-            <h4 className="font-bold text-amber-300 text-sm">Retirement Certificate</h4>
-            <p className="text-slate-300 leading-relaxed">
-              Credits are permanently burned for EU DPP compliance. Emits public Certificate of Retirement that can never be reused.
+            <h4 className="font-bold text-slate-900 text-sm">DPP &amp; ESG Substantiation</h4>
+            <p className="text-slate-600 leading-relaxed">
+              Brand permanently burns TRCs against specific PO to generate immutable Certificate of Circularity Retirement.
             </p>
           </div>
         </div>
       </div>
 
-      {/* Credit Balances Registry Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="glass-panel p-5 rounded-2xl border-slate-800 space-y-2">
-          <div className="flex items-center justify-between text-xs text-slate-400">
-            <span className="font-semibold uppercase tracking-wider">Total Minted TRCs</span>
-            <Coins className="w-4 h-4 text-amber-400" />
+      {/* Key Metrics Overview Cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-white border border-slate-200 p-5 rounded-2xl space-y-1 shadow-2xs">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-mono text-slate-500 font-bold uppercase">Total Minted</span>
+            <Coins className="w-4 h-4 text-amber-500" />
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-white">{totalMinted.toLocaleString()} TRCs</div>
-          <div className="text-[11px] text-slate-400 font-mono">1 TRC = 1 kg verified scrap</div>
+          <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">{totalMinted.toLocaleString()} <span className="text-xs font-mono text-slate-400">TRC</span></div>
+          <p className="text-[11px] text-slate-500">Total verified recycled fiber volume</p>
         </div>
 
-        <div className="glass-panel p-5 rounded-2xl border-slate-800 space-y-2">
-          <div className="flex items-center justify-between text-xs text-slate-400">
-            <span className="font-semibold uppercase tracking-wider">Available / Active</span>
-            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+        <div className="bg-white border border-slate-200 p-5 rounded-2xl space-y-1 shadow-2xs">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-mono text-slate-500 font-bold uppercase">Active in Wallets</span>
+            <ShieldCheck className="w-4 h-4 text-emerald-500" />
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-emerald-400">{totalActive.toLocaleString()} TRCs</div>
-          <div className="text-[11px] text-emerald-300 font-medium">Ready for brand allocation</div>
+          <div className="text-2xl sm:text-3xl font-extrabold text-emerald-700">{totalActive.toLocaleString()} <span className="text-xs font-mono text-slate-400">TRC</span></div>
+          <p className="text-[11px] text-slate-500">Available for trade or retirement</p>
         </div>
 
-        <div className="glass-panel p-5 rounded-2xl border-slate-800 space-y-2">
-          <div className="flex items-center justify-between text-xs text-slate-400">
-            <span className="font-semibold uppercase tracking-wider">Allocated to Brands</span>
-            <Layers className="w-4 h-4 text-cyan-400" />
+        <div className="bg-white border border-slate-200 p-5 rounded-2xl space-y-1 shadow-2xs">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-mono text-slate-500 font-bold uppercase">Allocated to Brands</span>
+            <Layers className="w-4 h-4 text-cyan-500" />
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-cyan-400">{totalAllocated.toLocaleString()} TRCs</div>
-          <div className="text-[11px] text-slate-400">Held in brand enterprise wallets</div>
+          <div className="text-2xl sm:text-3xl font-extrabold text-cyan-700">{totalAllocated.toLocaleString()} <span className="text-xs font-mono text-slate-400">TRC</span></div>
+          <p className="text-[11px] text-slate-500">Committed to active garment production</p>
         </div>
 
-        <div className="glass-panel p-5 rounded-2xl border-amber-500/30 bg-amber-950/20 space-y-2">
-          <div className="flex items-center justify-between text-xs text-amber-400">
-            <span className="font-semibold uppercase tracking-wider font-bold">Permanently Burned</span>
-            <Flame className="w-4 h-4 text-amber-400" />
+        <div className="bg-white border border-slate-200 p-5 rounded-2xl space-y-1 shadow-2xs">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-mono text-slate-500 font-bold uppercase">Retired / Burned</span>
+            <Flame className="w-4 h-4 text-red-500" />
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-amber-300">{totalRetired.toLocaleString()} TRCs</div>
-          <div className="text-[11px] text-amber-400 font-medium">Official EU DPP Proof of Offset</div>
+          <div className="text-2xl sm:text-3xl font-extrabold text-red-700">{totalRetired.toLocaleString()} <span className="text-xs font-mono text-slate-400">TRC</span></div>
+          <p className="text-[11px] text-slate-500">Permanently retired for compliance</p>
         </div>
       </div>
 
-      {/* Verifiable Credit Tokens Registry Table */}
-      <div className="glass-panel p-6 sm:p-8 rounded-3xl border-slate-800 space-y-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      {/* Registry Table Section */}
+      <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-6 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h3 className="text-lg font-bold text-white">Verifiable Recycling Credits (TRC Master Ledger)</h3>
-            <p className="text-xs text-slate-400">Searchable registry of tokenized recycling credits with cryptographic proof hashes</p>
+            <h3 className="text-lg font-bold text-slate-900">Tokenized Credit Registry Batches</h3>
+            <p className="text-xs text-slate-500">Each credit represents 1 kg of verified recycled textile fiber with cryptographic mass-balance proof.</p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex items-center gap-3">
             <div className="relative">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
               <input
                 type="text"
-                placeholder="Search Credit ID, Batch, Owner..."
+                placeholder="Search credits, batch, brand..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-9 pr-4 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 w-64"
+                className="pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-emerald-600 w-56 font-mono"
               />
             </div>
 
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300 focus:outline-none focus:border-amber-500"
-            >
-              <option value="ALL">All Statuses</option>
-              <option value="ACTIVE">Active (Available)</option>
-              <option value="ALLOCATED">Allocated</option>
-              <option value="RETIRED">Retired / Burned</option>
-            </select>
+            <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-medium">
+              {["ALL", "ACTIVE", "ALLOCATED", "RETIRED"].map((status) => (
+                <button
+                  key={status}
+                  onClick={() => setStatusFilter(status)}
+                  className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                    statusFilter === status
+                      ? "bg-white text-slate-900 shadow-2xs"
+                      : "text-slate-500 hover:text-slate-900"
+                  }`}
+                >
+                  {status}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -290,130 +295,76 @@ export default function RecyclingCreditsRegistryPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-slate-800 text-slate-400 uppercase font-mono text-[10px]">
-                <th className="py-3 px-3">Credit Token ID</th>
-                <th className="py-3 px-3">Serial Range</th>
-                <th className="py-3 px-3">Material &amp; Blend</th>
-                <th className="py-3 px-3">Volume (kg)</th>
-                <th className="py-3 px-3">Current Custody</th>
-                <th className="py-3 px-3">Registry Status</th>
-                <th className="py-3 px-3 text-right">Actions</th>
+              <tr className="border-b border-slate-200 text-slate-500 font-mono text-[11px]">
+                <th className="pb-3 font-semibold">TOKEN ID &amp; SERIAL</th>
+                <th className="pb-3 font-semibold">BATCH / VCR REF</th>
+                <th className="pb-3 font-semibold">MATERIAL &amp; COMPOSITION</th>
+                <th className="pb-3 font-semibold">QUANTITY (KG)</th>
+                <th className="pb-3 font-semibold">CURRENT CUSTODIAN</th>
+                <th className="pb-3 font-semibold">STATUS</th>
+                <th className="pb-3 text-right font-semibold">ACTIONS</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
-              {filteredCredits.map((credit) => {
-                const isActive = credit.status === "ACTIVE";
-                const isAllocated = credit.status === "ALLOCATED";
-                const isRetired = credit.status === "RETIRED";
-
-                return (
-                  <tr key={credit.creditId} className="hover:bg-slate-800/40 transition-colors">
-                    <td className="py-4 px-3 space-y-0.5">
-                      <span className="font-mono font-bold text-amber-400 block">{credit.creditId}</span>
-                      <span className="text-[10px] text-slate-400 font-mono">VCR: {credit.vcrId}</span>
-                    </td>
-                    <td className="py-4 px-3 font-mono font-semibold text-slate-300">
-                      {credit.serialNumberRange}
-                    </td>
-                    <td className="py-4 px-3 space-y-0.5 max-w-xs">
-                      <span className="text-slate-200 font-medium block truncate">{credit.materialType}</span>
-                      <span className="text-[10px] text-slate-400 block">{credit.fiberComposition}</span>
-                    </td>
-                    <td className="py-4 px-3 font-mono font-bold text-white">
-                      {credit.creditAmountKg.toLocaleString()} TRCs
-                    </td>
-                    <td className="py-4 px-3 text-slate-300 font-medium max-w-xs truncate">
-                      {credit.currentOwner}
-                    </td>
-                    <td className="py-4 px-3">
-                      {isActive && (
-                        <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold font-mono">
-                          ACTIVE
-                        </span>
-                      )}
-                      {isAllocated && (
-                        <span className="px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 text-[10px] font-bold font-mono">
-                          ALLOCATED
-                        </span>
-                      )}
-                      {isRetired && (
-                        <span className="px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 text-[10px] font-bold font-mono">
-                          RETIRED / BURNED
-                        </span>
-                      )}
-                    </td>
-                    <td className="py-4 px-3 text-right">
-                      {isRetired ? (
-                        <button
-                          onClick={() => setViewingCertificate(credit.retirementRecord || null)}
-                          className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 text-[11px] font-semibold transition-colors"
-                        >
-                          <Award className="w-3.5 h-3.5" />
-                          <span>View Certificate</span>
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() => setSelectedCreditForRetirement(credit)}
-                          className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-300 text-[11px] font-semibold transition-colors"
-                        >
-                          <Flame className="w-3.5 h-3.5" />
-                          <span>Retire &amp; Burn</span>
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
+            <tbody className="divide-y divide-slate-100">
+              {filteredCredits.map((credit) => (
+                <tr key={credit.creditId} className="hover:bg-slate-50/80 transition-colors">
+                  <td className="py-4 font-mono font-bold text-slate-900">
+                    <div>{credit.creditId}</div>
+                    <span className="text-[10px] text-slate-400 font-normal">{credit.serialNumberRange}</span>
+                  </td>
+                  <td className="py-4 font-mono text-slate-600">
+                    <div>{credit.batchId}</div>
+                    <Link href={`/dpp/${credit.vcrId}`} className="text-[10px] text-emerald-700 hover:underline flex items-center gap-1 font-bold">
+                      <span>{credit.vcrId}</span>
+                      <ExternalLink className="w-2.5 h-2.5" />
+                    </Link>
+                  </td>
+                  <td className="py-4">
+                    <div className="font-semibold text-slate-900">{credit.materialType}</div>
+                    <span className="text-[10px] font-mono text-slate-500">{credit.fiberComposition}</span>
+                  </td>
+                  <td className="py-4 font-mono font-bold text-amber-700 text-sm">
+                    {credit.creditAmountKg.toLocaleString()} TRC
+                  </td>
+                  <td className="py-4 font-medium text-slate-800">{credit.currentOwner}</td>
+                  <td className="py-4 font-mono">
+                    <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold border ${
+                      credit.status === "ACTIVE"
+                        ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+                        : credit.status === "ALLOCATED"
+                        ? "bg-cyan-50 text-cyan-800 border-cyan-200"
+                        : "bg-red-50 text-red-800 border-red-200"
+                    }`}>
+                      {credit.status}
+                    </span>
+                  </td>
+                  <td className="py-4 text-right">
+                    {credit.status === "ACTIVE" || credit.status === "ALLOCATED" ? (
+                      <button
+                        onClick={() => setSelectedCreditForRetirement(credit)}
+                        className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-red-500 hover:from-amber-400 text-slate-950 font-bold text-[11px] inline-flex items-center gap-1 shadow-2xs hover:scale-105 transition-all"
+                      >
+                        <Flame className="w-3.5 h-3.5" />
+                        <span>Retire &amp; Burn</span>
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => setViewingCertificate(credit.retirementRecord || null)}
+                        className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-[11px] inline-flex items-center gap-1 border border-slate-200"
+                      >
+                        <Award className="w-3.5 h-3.5 text-amber-600" />
+                        <span>Certificate</span>
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
       </div>
 
-      {/* Live Blockchain-Style Cryptographic Ledger Stream */}
-      <div className="glass-panel p-6 sm:p-8 rounded-3xl border-slate-800 space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Lock className="w-4 h-4 text-emerald-400" />
-            <h3 className="text-base font-bold text-white">Cryptographic Transaction Stream (Immutable Ledger)</h3>
-          </div>
-          <span className="text-xs font-mono text-slate-400">SHA-256 Signed</span>
-        </div>
-
-        <div className="space-y-2">
-          {transactions.map((tx) => (
-            <div
-              key={tx.txId}
-              className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs font-mono"
-            >
-              <div className="flex items-center gap-3">
-                <span
-                  className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                    tx.type === "MINT"
-                      ? "bg-emerald-500/20 text-emerald-300"
-                      : tx.type === "RETIRE"
-                      ? "bg-amber-500/20 text-amber-300"
-                      : "bg-cyan-500/20 text-cyan-300"
-                  }`}
-                >
-                  {tx.type}
-                </span>
-                <span className="text-white font-bold">{tx.quantityKg.toLocaleString()} TRCs</span>
-                <span className="text-slate-400 text-[11px]">({tx.creditId})</span>
-              </div>
-
-              <div className="text-slate-300 text-[11px] truncate max-w-md">
-                {tx.fromParty} → <span className="text-white">{tx.toParty}</span>
-              </div>
-
-              <div className="text-slate-500 text-[10px] truncate max-w-xs text-right">
-                Proof: {tx.proofHash.slice(0, 18)}...
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Retirement Form Modal */}
+      {/* Retirement Flow Modal */}
       <CreditRetirementModal
         credit={selectedCreditForRetirement}
         isOpen={!!selectedCreditForRetirement}
@@ -421,7 +372,7 @@ export default function RecyclingCreditsRegistryPage() {
         onRetired={handleRetiredSuccess}
       />
 
-      {/* Official Certificate View Modal */}
+      {/* Certificate Viewer Modal */}
       <CertificateOfRetirementModal
         record={viewingCertificate}
         credit={credits.find((c) => c.retirementRecord?.certificateId === viewingCertificate?.certificateId)}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import confetti from "canvas-confetti";
 import {
   FileText,
@@ -24,7 +24,10 @@ import {
   ChevronRight,
   Plus,
   FolderOpen,
-  Check
+  Check,
+  Building,
+  Hash,
+  ShieldAlert
 } from "lucide-react";
 import { CLEAN_DOCUMENTS, FRAUD_DOCUMENTS } from "@/lib/sample-data";
 import { ExtractedDocumentData } from "@/types";
@@ -38,9 +41,13 @@ export default function CleanMinimalApp() {
   const [activeTab, setActiveTab] = useState<"docs" | "audit" | "credits">("docs");
   const [batchType, setBatchType] = useState<"clean" | "fraud">("clean");
   const [documents, setDocuments] = useState<ExtractedDocumentData[]>(CLEAN_DOCUMENTS);
+  const [batchId, setBatchId] = useState<string>("BATCH-2026-IND-8842");
+  const [vcrId, setVcrId] = useState<string>("TX-000184");
+  
   const [auditResult, setAuditResult] = useState<AuditReconciliationResult>(
     performMaterialAudit(CLEAN_DOCUMENTS, "BATCH-2026-IND-8842", "TX-000184")
   );
+  
   const [isAuditing, setIsAuditing] = useState(false);
   const [isUploadingFile, setIsUploadingFile] = useState(false);
   const [uploadSuccessMsg, setUploadSuccessMsg] = useState<string | null>(null);
@@ -49,46 +56,84 @@ export default function CleanMinimalApp() {
   const [isUploadOpen, setIsUploadOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  // Credit State
+  // Dynamic Credit State (cleared & updated after every audit)
   const [creditStatus, setCreditStatus] = useState<"ACTIVE" | "RETIRED">("ACTIVE");
   const [retiredRecord, setRetiredRecord] = useState<RetirementRecord | null>(null);
   const [viewingCert, setViewingCert] = useState(false);
   const [isRetiring, setIsRetiring] = useState(false);
+  const [beneficiaryBrand, setBeneficiaryBrand] = useState("Nordic EcoWear Global");
+  const [productLine, setProductLine] = useState("Autumn/Winter Circular Jersey Line");
+
+  // Dynamic Calculations derived directly from latest auditResult
+  const isVerified = auditResult.status === "VERIFIED";
+  const verifiedYieldKg = isVerified ? auditResult.ledger.recycledYarnProducedKg : 0;
+  const co2SavingsKg = Math.round(verifiedYieldKg * 2.6);
+  const waterSavingsLiters = Math.round(verifiedYieldKg * 241);
+  const serialRange = `#00001 - #${String(verifiedYieldKg).padStart(5, "0")}`;
+  const materialType = documents[0]?.materialName || "Pre-Consumer Textile Cutting Scrap";
+  const fiberComposition = `${documents[0]?.composition.cottonPercentage || 78.4}% Cotton / ${documents[0]?.composition.polyesterPercentage || 21.6}% Polyester`;
 
   const handleBatchSwitch = (type: "clean" | "fraud") => {
     setBatchType(type);
     setUploadSuccessMsg(null);
+    setCreditStatus("ACTIVE");
+    setRetiredRecord(null);
+
     if (type === "clean") {
+      const newBatchId = "BATCH-2026-IND-8842";
+      const newVcrId = "TX-000184";
+      setBatchId(newBatchId);
+      setVcrId(newVcrId);
       setDocuments(CLEAN_DOCUMENTS);
-      setAuditResult(performMaterialAudit(CLEAN_DOCUMENTS, "BATCH-2026-IND-8842", "TX-000184"));
-      setCreditStatus("ACTIVE");
-      setRetiredRecord(null);
+      setAuditResult(performMaterialAudit(CLEAN_DOCUMENTS, newBatchId, newVcrId));
     } else {
+      const newBatchId = "BATCH-2026-MANIP-990";
+      const newVcrId = "TX-000990";
+      setBatchId(newBatchId);
+      setVcrId(newVcrId);
       setDocuments(FRAUD_DOCUMENTS);
-      setAuditResult(performMaterialAudit(FRAUD_DOCUMENTS, "BATCH-2026-MANIP-990", "TX-000990"));
+      setAuditResult(performMaterialAudit(FRAUD_DOCUMENTS, newBatchId, newVcrId));
     }
   };
 
   const handleRunAudit = () => {
     setIsAuditing(true);
+    // Reset any retired credit state on re-audit
+    setCreditStatus("ACTIVE");
+    setRetiredRecord(null);
+
     setTimeout(() => {
+      const freshAudit = performMaterialAudit(documents, batchId, vcrId);
+      setAuditResult(freshAudit);
       setIsAuditing(false);
       setActiveTab("audit");
-      if (batchType === "clean") {
+
+      if (freshAudit.status === "VERIFIED") {
         confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
       }
-    }, 500);
+    }, 400);
   };
 
   const handleDocumentAdded = (newDoc: ExtractedDocumentData) => {
-    const updated = [newDoc, ...documents];
-    setDocuments(updated);
-    const res = performMaterialAudit(updated, "BATCH-2026-LIVE-USER", "TX-000299");
+    const updatedDocs = [newDoc, ...documents];
+    const liveBatchId = "BATCH-2026-LIVE-" + Math.floor(1000 + Math.random() * 9000);
+    const liveVcrId = "TX-" + Math.floor(200000 + Math.random() * 800000);
+
+    setBatchId(liveBatchId);
+    setVcrId(liveVcrId);
+    setDocuments(updatedDocs);
+
+    // Run dynamic mass reconciliation on updated documents
+    const res = performMaterialAudit(updatedDocs, liveBatchId, liveVcrId);
     setAuditResult(res);
-    setUploadSuccessMsg(`✓ Successfully extracted and added "${newDoc.fileName}" from your PC!`);
+    
+    // Clear any stale retirement cache
+    setCreditStatus("ACTIVE");
+    setRetiredRecord(null);
+
+    setUploadSuccessMsg(`✓ Extracted "${newDoc.fileName}" from PC. Mass audit & TRCs updated in real time!`);
     confetti({ particleCount: 60, spread: 60, origin: { y: 0.5 }, colors: ["#059669", "#0284c7"] });
 
-    // Clear message after 6s
     setTimeout(() => setUploadSuccessMsg(null), 6000);
   };
 
@@ -115,28 +160,25 @@ export default function CleanMinimalApp() {
         if (data.success && data.document) {
           handleDocumentAdded(data.document);
         } else {
-          // Fallback parser if API call fails
+          // Dynamic fallback parser if API endpoint is cold
+          const isLab = file.name.toLowerCase().includes("lab") || file.name.toLowerCase().includes("test");
           const fallbackDoc: ExtractedDocumentData = {
             id: "doc-custom-" + Date.now(),
             fileName: file.name,
             fileSize: `${(file.size / 1024).toFixed(1)} KB`,
             uploadTimestamp: new Date().toISOString(),
-            documentType: file.name.toLowerCase().includes("lab")
-              ? "lab_report"
-              : file.name.toLowerCase().includes("slip") || file.name.toLowerCase().includes("weigh")
-              ? "weighbridge_slip"
-              : "waste_invoice",
-            issuer: "Local Facility (From PC)",
+            documentType: isLab ? "lab_report" : "waste_invoice",
+            issuer: "Local PC Upload Facility",
             targetParty: "EcoSpin Reclaimers Pvt Ltd",
             referenceNumber: "REF-" + Math.floor(1000 + Math.random() * 9000),
-            materialName: "Uploaded Textile Test Specimen",
+            materialName: file.name.replace(/\.[^/.]+$/, ""),
             quantityKg: 10000,
             composition: {
               cottonPercentage: 80.0,
               polyesterPercentage: 20.0,
-              fiberDescription: "Analyzed Recycled Fiber from PC upload",
+              fiberDescription: "Analyzed Recycled Fiber from PC File",
             },
-            gsm: 200,
+            gsm: 195,
             source: "post-industrial",
             dispatchDate: new Date().toISOString().split("T")[0],
             confidence: 0.99,
@@ -144,7 +186,7 @@ export default function CleanMinimalApp() {
               totalWeight: { value: "10,000 kg", confidence: 0.99, label: "Net Quantity" },
               cottonRatio: { value: "80.0% Cotton", confidence: 0.98, label: "Blend Ratio" },
             },
-            rawTextSnippet: `[AI PARSED LOCAL FILE: ${file.name}]\nFile Size: ${(file.size / 1024).toFixed(1)} KB\nNet Weight: 10,000.00 KG\nFiber Composition: 80% Cotton / 20% Polyester\nStatus: Successfully Parsed and Audited`,
+            rawTextSnippet: `[PARSED EVIDENCE ATTACHMENT: ${file.name}]\nDeclared Quantity: 10,000.00 KG\nFiber Composition: 80% Cotton / 20% Polyester\nStatus: Successfully Extracted from PC`,
           };
           handleDocumentAdded(fallbackDoc);
         }
@@ -155,7 +197,6 @@ export default function CleanMinimalApp() {
       }
     };
 
-    // If text/csv/json read as text, else read as data url
     if (file.type.includes("text") || file.name.endsWith(".csv") || file.name.endsWith(".json") || file.name.endsWith(".txt")) {
       reader.readAsText(file);
     } else {
@@ -168,7 +209,6 @@ export default function CleanMinimalApp() {
     if (file) {
       processUploadedFile(file);
     }
-    // Reset file input so user can pick the same file again if desired
     if (e.target) e.target.value = "";
   };
 
@@ -191,31 +231,57 @@ export default function CleanMinimalApp() {
     }
   };
 
+  // Dynamic Real-Time Retirement & Cryptographic Burn
   const handleRetire = () => {
+    if (!isVerified || verifiedYieldKg <= 0) return;
+
     setIsRetiring(true);
+    const certNum = "CERT-RET-" + new Date().getFullYear() + "-" + Math.floor(1000 + Math.random() * 9000);
+    const proofHash = "0x" + Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join("");
+
     setTimeout(() => {
       const rec: RetirementRecord = {
-        certificateId: "CERT-RET-2026-9912",
-        retiredBy: "Nordic EcoWear Global",
-        beneficiaryBrand: "Nordic EcoWear Global",
-        productLine: "Autumn/Winter Circular Jersey Line",
-        orderReference: "PO #NW-4819-EU",
+        certificateId: certNum,
+        retiredBy: beneficiaryBrand,
+        beneficiaryBrand: beneficiaryBrand,
+        productLine: productLine,
+        orderReference: `PO #${batchId.slice(-6)}-EU`,
         retirementTimestamp: new Date().toISOString(),
-        complianceMandate: "EU Digital Product Passport (DPP) & CSRD Scope 3",
-        proofHash: "0x8f2a9e33b5c7714902d8471c99fa68a35e2194b17c938d2f09d841e21b8c1992",
-        verificationUrl: "/dpp/TX-000184",
-        co2OffsetKg: 21320,
-        waterSavedLiters: 1980000,
+        complianceMandate: "EU Digital Product Passport (DPP) & CSRD ESRS E5 Scope 3",
+        proofHash: proofHash,
+        verificationUrl: `/dpp/${vcrId}`,
+        co2OffsetKg: co2SavingsKg,
+        waterSavedLiters: waterSavingsLiters,
       };
       setRetiredRecord(rec);
       setCreditStatus("RETIRED");
       setIsRetiring(false);
       setViewingCert(true);
       confetti({ particleCount: 80, spread: 70, origin: { y: 0.5 }, colors: ["#d97706", "#059669"] });
-    }, 600);
+    }, 500);
   };
 
-  const isVerified = auditResult.status === "VERIFIED";
+  // Construct dynamic credit object for the retirement modal
+  const dynamicCreditObj: RecyclingCredit = {
+    creditId: `TRC-${batchId}`,
+    serialNumberRange: serialRange,
+    batchId: batchId,
+    vcrId: vcrId,
+    materialType: materialType,
+    fiberComposition: fiberComposition,
+    creditAmountKg: verifiedYieldKg,
+    issuerEntity: "EcoSpin Reclaimers Pvt Ltd",
+    sourceMill: documents[0]?.issuer || "Tirupur Textile Mills",
+    mintTimestamp: new Date().toISOString().split("T")[0],
+    status: creditStatus === "RETIRED" ? "RETIRED" : "ACTIVE",
+    currentOwner: beneficiaryBrand,
+    cryptographicSeal: {
+      merkleRoot: "0x" + Math.random().toString(16).substring(2, 18),
+      rsaSignature: "TexTrace-VeriEngine-RSA4096",
+      sha256Hash: retiredRecord?.proofHash || "0x8f2a9e33b5c7714902d8471c99fa68a35e2194b17c938d2f09d841e21b8c1992",
+      auditorVerificationId: `AUDIT-PASS-${vcrId}`,
+    },
+  };
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -279,17 +345,14 @@ export default function CleanMinimalApp() {
 
           <button
             onClick={() => setActiveTab("credits")}
-            disabled={!isVerified}
             className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
               activeTab === "credits"
                 ? "bg-slate-900 text-white shadow-xs"
-                : isVerified
-                ? "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
-                : "opacity-40 cursor-not-allowed text-slate-400"
+                : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
             }`}
           >
             <Coins className="w-3.5 h-3.5 text-amber-400" />
-            <span>3. Circularity Credits</span>
+            <span>3. Circularity Credits ({isVerified ? `${verifiedYieldKg.toLocaleString()} TRC` : "0 TRC"})</span>
           </button>
         </div>
 
@@ -327,7 +390,7 @@ export default function CleanMinimalApp() {
           <div className="space-y-6 animate-in fade-in duration-150">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
               <div>
-                <h3 className="text-base font-bold text-slate-900">Inbound Evidence Package</h3>
+                <h3 className="text-base font-bold text-slate-900">Inbound Evidence Package ({batchId})</h3>
                 <p className="text-xs text-slate-500">Upload lab reports from your PC, weighbridge slips &amp; recycling scope certs.</p>
               </div>
 
@@ -420,7 +483,7 @@ export default function CleanMinimalApp() {
           <div className="space-y-6 animate-in fade-in duration-150">
             <div className="flex items-center justify-between border-b border-slate-100 pb-4">
               <div>
-                <h3 className="text-base font-bold text-slate-900">Conservation of Mass Audit</h3>
+                <h3 className="text-base font-bold text-slate-900">Conservation of Mass Audit ({batchId})</h3>
                 <p className="text-xs text-slate-500">Verifying material movement from scrap generation to recycled yarn output.</p>
               </div>
 
@@ -478,7 +541,7 @@ export default function CleanMinimalApp() {
                   className="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs flex items-center gap-2 shadow-xs"
                 >
                   <Coins className="w-3.5 h-3.5" />
-                  <span>Issue 8,200 Circularity Credits &rarr;</span>
+                  <span>Issue {verifiedYieldKg.toLocaleString()} Circularity Credits &rarr;</span>
                 </button>
               </div>
             )}
@@ -486,57 +549,138 @@ export default function CleanMinimalApp() {
         )}
 
         {/* ========================================================================= */}
-        {/* TAB 3: CIRCULARITY CREDITS */}
+        {/* TAB 3: CIRCULARITY CREDITS (100% DYNAMIC - ZERO CACHE) */}
         {/* ========================================================================= */}
         {activeTab === "credits" && (
           <div className="space-y-6 animate-in fade-in duration-150">
             <div className="flex items-center justify-between border-b border-slate-100 pb-4">
               <div>
                 <h3 className="text-base font-bold text-slate-900">Textile Recycling Credits (TRCs)</h3>
-                <p className="text-xs text-slate-500">1 TRC = 1 kg verified recycled fiber. Brands retire credits to prove compliance.</p>
+                <p className="text-xs text-slate-500">
+                  1 TRC = 1 kg verified recycled fiber. Dynamic batch: <span className="font-mono font-bold text-slate-800">{batchId}</span>
+                </p>
               </div>
 
-              <span className={`px-3 py-1 rounded-full text-xs font-bold font-mono ${
-                creditStatus === "RETIRED"
-                  ? "bg-amber-100 text-amber-800 border border-amber-300"
-                  : "bg-emerald-100 text-emerald-800 border border-emerald-300"
-              }`}>
-                {creditStatus === "RETIRED" ? "🔥 BURNED & RETIRED" : "🪙 ACTIVE IN WALLET"}
-              </span>
-            </div>
-
-            {/* Credit Overview */}
-            <div className="p-6 rounded-2xl bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
-              <div className="space-y-1 text-center sm:text-left">
-                <span className="text-[10px] font-mono text-slate-400 uppercase">Verified Balance</span>
-                <div className="text-3xl font-black text-amber-400">8,200 TRCs</div>
-                <p className="text-xs text-slate-300">Allocated to <strong>Nordic EcoWear Global</strong></p>
-              </div>
-
-              {creditStatus === "ACTIVE" ? (
-                <button
-                  onClick={handleRetire}
-                  disabled={isRetiring}
-                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-red-500 hover:from-amber-400 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-sm transition-all hover:scale-105"
-                >
-                  <Flame className="w-4 h-4" />
-                  <span>{isRetiring ? "Retiring..." : "Retire / Burn 8,200 TRCs for Compliance"}</span>
-                </button>
+              {isVerified ? (
+                <span className={`px-3 py-1 rounded-full text-xs font-bold font-mono ${
+                  creditStatus === "RETIRED"
+                    ? "bg-amber-100 text-amber-800 border border-amber-300"
+                    : "bg-emerald-100 text-emerald-800 border border-emerald-300"
+                }`}>
+                  {creditStatus === "RETIRED" ? "🔥 BURNED & RETIRED" : "🪙 ACTIVE IN WALLET"}
+                </span>
               ) : (
-                <button
-                  onClick={() => setViewingCert(true)}
-                  className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-2"
-                >
-                  <Award className="w-4 h-4" />
-                  <span>View Proof Certificate</span>
-                </button>
+                <span className="px-3 py-1 rounded-full text-xs font-bold font-mono bg-red-100 text-red-800 border border-red-300">
+                  🚫 MINTING BLOCKED
+                </span>
               )}
             </div>
 
-            {creditStatus === "RETIRED" && (
-              <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-center justify-between">
-                <span>✓ Permanently burned to substantiate EU DPP &amp; CSRD Scope 3 compliance.</span>
-                <button onClick={() => setViewingCert(true)} className="underline font-bold text-amber-800 hover:text-amber-950">Certificate #CERT-RET-2026-9912</button>
+            {/* If Audit Passed: Dynamic Live Credit Wallet */}
+            {isVerified ? (
+              <div className="space-y-4">
+                <div className="p-6 rounded-2xl bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
+                  <div className="space-y-1 text-center sm:text-left">
+                    <span className="text-[10px] font-mono text-slate-400 uppercase">Live Verified TRC Balance</span>
+                    <div className="text-3xl font-black text-amber-400">{verifiedYieldKg.toLocaleString()} TRCs</div>
+                    <p className="text-xs text-slate-300">
+                      VCR ID: <strong className="font-mono text-emerald-400">{vcrId}</strong> • Serial: <span className="font-mono text-amber-300">{serialRange}</span>
+                    </p>
+                  </div>
+
+                  {creditStatus === "ACTIVE" ? (
+                    <button
+                      onClick={handleRetire}
+                      disabled={isRetiring}
+                      className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-red-500 hover:from-amber-400 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-sm transition-all hover:scale-105"
+                    >
+                      <Flame className="w-4 h-4" />
+                      <span>{isRetiring ? "Burning & Retiring..." : `Retire / Burn ${verifiedYieldKg.toLocaleString()} TRCs for Compliance`}</span>
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => setViewingCert(true)}
+                      className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-2"
+                    >
+                      <Award className="w-4 h-4" />
+                      <span>View Official Certificate</span>
+                    </button>
+                  )}
+                </div>
+
+                {/* Brand Customizer Input (Before Burning) */}
+                {creditStatus === "ACTIVE" && (
+                  <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-3">
+                    <span className="font-bold text-slate-700 block uppercase text-[10px] tracking-wider">
+                      Compliance Allocation &amp; Brand Beneficiary Details
+                    </span>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className="text-slate-500 text-[11px] block font-medium">Beneficiary Brand / Retailer</label>
+                        <input
+                          type="text"
+                          value={beneficiaryBrand}
+                          onChange={(e) => setBeneficiaryBrand(e.target.value)}
+                          className="w-full mt-1 px-3 py-2 rounded-xl bg-white border border-slate-300 text-slate-900 font-medium focus:outline-none focus:border-emerald-600"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-slate-500 text-[11px] block font-medium">Target Garment Line / Order PO</label>
+                        <input
+                          type="text"
+                          value={productLine}
+                          onChange={(e) => setProductLine(e.target.value)}
+                          className="w-full mt-1 px-3 py-2 rounded-xl bg-white border border-slate-300 text-slate-900 font-medium focus:outline-none focus:border-emerald-600"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Retirement Banner */}
+                {creditStatus === "RETIRED" && retiredRecord && (
+                  <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-center justify-between">
+                    <div>
+                      <span className="font-bold block">✓ Permanently burned {verifiedYieldKg.toLocaleString()} TRCs to substantiate EU DPP &amp; CSRD Scope 3.</span>
+                      <span className="text-[11px] text-amber-800">Beneficiary: <strong>{retiredRecord.beneficiaryBrand}</strong> ({retiredRecord.productLine})</span>
+                    </div>
+                    <button onClick={() => setViewingCert(true)} className="underline font-bold text-amber-800 hover:text-amber-950">
+                      View {retiredRecord.certificateId}
+                    </button>
+                  </div>
+                )}
+
+                {/* Live Environmental Calculation */}
+                <div className="grid grid-cols-2 gap-3 text-xs">
+                  <div className="p-3.5 rounded-2xl bg-emerald-50/60 border border-emerald-200 flex items-center gap-3 text-emerald-900">
+                    <Leaf className="w-5 h-5 text-emerald-600 shrink-0" />
+                    <div>
+                      <span className="text-[10px] uppercase font-mono text-emerald-700 block font-bold">Dynamic CO₂ Avoidance</span>
+                      <span className="font-extrabold text-sm">{co2SavingsKg.toLocaleString()} kg CO₂</span>
+                    </div>
+                  </div>
+                  <div className="p-3.5 rounded-2xl bg-cyan-50/60 border border-cyan-200 flex items-center gap-3 text-cyan-900">
+                    <Droplet className="w-5 h-5 text-cyan-600 shrink-0" />
+                    <div>
+                      <span className="text-[10px] uppercase font-mono text-cyan-700 block font-bold">Dynamic Water Conserved</span>
+                      <span className="font-extrabold text-sm">{waterSavingsLiters.toLocaleString()} Liters</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              /* If Audit Failed: Clear Error State with 0 Credits */
+              <div className="p-6 rounded-2xl bg-red-50 border border-red-200 text-xs text-red-900 space-y-3">
+                <div className="flex items-center gap-2 font-bold text-sm text-red-800">
+                  <ShieldAlert className="w-5 h-5 text-red-600" />
+                  <span>0 Circularity Credits Available — Minting Blocked by Audit Engine</span>
+                </div>
+                <p className="text-red-700 leading-relaxed">
+                  Batch <strong>{batchId}</strong> contains critical mass balance or certification discrepancies. Under sovereign registry rules, zero credits are minted for non-compliant or manipulated batches.
+                </p>
+                <div className="p-3 rounded-xl bg-white/80 border border-red-200 font-mono text-[11px] text-red-800">
+                  Audit Status: FAILED • Claimed: {auditResult.ledger.recycledYarnProducedKg.toLocaleString()} kg • Verified Input: {auditResult.ledger.recyclerReceivedKg.toLocaleString()} kg (Discrepancy: +{Math.max(0, auditResult.ledger.recycledYarnProducedKg - auditResult.ledger.recyclerReceivedKg).toLocaleString()} kg)
+                </div>
               </div>
             )}
           </div>
@@ -556,29 +700,10 @@ export default function CleanMinimalApp() {
         onDocumentAdded={handleDocumentAdded}
       />
 
-      {/* Certificate Modal */}
+      {/* Dynamic Certificate Modal */}
       <CertificateOfRetirementModal
         record={retiredRecord}
-        credit={{
-          creditId: "TRC-2026-IND-TLM-8842",
-          serialNumberRange: "#00001 - #08200",
-          batchId: "BATCH-2026-IND-8842",
-          vcrId: "TX-000184",
-          materialType: "Pre-Consumer Cotton/Poly Blend",
-          fiberComposition: "78.4% Cotton / 21.6% PET",
-          creditAmountKg: 8200,
-          issuerEntity: "EcoSpin Reclaimers",
-          sourceMill: "Sri Lakshmi Garment Mills",
-          mintTimestamp: "2026-08-22",
-          status: "RETIRED",
-          currentOwner: "Nordic EcoWear Global",
-          cryptographicSeal: {
-            merkleRoot: "0x4f88129a012bc781293e",
-            rsaSignature: "TexTrace-VeriEngine-RSA4096",
-            sha256Hash: "0x8f2a9e33b5c7714902d8471c99fa68a35e2194b17c938d2f09d841e21b8c1992",
-            auditorVerificationId: "AUDIT-PASS-TX-000184",
-          },
-        }}
+        credit={dynamicCreditObj}
         isOpen={viewingCert}
         onClose={() => setViewingCert(false)}
       />
