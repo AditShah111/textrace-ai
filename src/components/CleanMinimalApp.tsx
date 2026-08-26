@@ -79,7 +79,7 @@ export default function CleanMinimalApp() {
     setDocuments(updated);
     const res = performMaterialAudit(updated, "BATCH-2026-LIVE-USER", "TX-000299");
     setAuditResult(res);
-    confetti({ particleCount: 50, spread: 50, origin: { y: 0.5 }, colors: ["#10b981", "#06b6d4"] });
+    confetti({ particleCount: 50, spread: 50, origin: { y: 0.5 }, colors: ["#059669", "#0284c7"] });
   };
 
   // Direct native file picker handler
@@ -141,7 +141,7 @@ export default function CleanMinimalApp() {
       setCreditStatus("RETIRED");
       setIsRetiring(false);
       setViewingCert(true);
-      confetti({ particleCount: 80, spread: 70, origin: { y: 0.5 }, colors: ["#f59e0b", "#10b981"] });
+      confetti({ particleCount: 80, spread: 70, origin: { y: 0.5 }, colors: ["#d97706", "#059669"] });
     }, 600);
   };
 
@@ -158,16 +158,16 @@ export default function CleanMinimalApp() {
         className="hidden"
       />
 
-      {/* Clean Segmented Bar */}
-      <div className="bg-slate-900/90 border border-slate-800 p-2 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xl backdrop-blur-xl">
+      {/* Clean Segmented Control Bar */}
+      <div className="bg-white border border-slate-200 p-1.5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xs">
         {/* Navigation Tabs */}
         <div className="flex items-center gap-1 w-full sm:w-auto">
           <button
             onClick={() => setActiveTab("docs")}
-            className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-semibold transition-all flex items-center justify-center gap-2 ${
+            className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
               activeTab === "docs"
-                ? "bg-slate-800 text-white shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-slate-900 text-white shadow-xs"
+                : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
             }`}
           >
             <FileText className="w-3.5 h-3.5 text-emerald-400" />
@@ -176,10 +176,10 @@ export default function CleanMinimalApp() {
 
           <button
             onClick={() => setActiveTab("audit")}
-            className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-semibold transition-all flex items-center justify-center gap-2 ${
+            className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
               activeTab === "audit"
-                ? "bg-slate-800 text-white shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-slate-900 text-white shadow-xs"
+                : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
             }`}
           >
             <Scale className="w-3.5 h-3.5 text-cyan-400" />
@@ -194,12 +194,12 @@ export default function CleanMinimalApp() {
           <button
             onClick={() => setActiveTab("credits")}
             disabled={!isVerified}
-            className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-semibold transition-all flex items-center justify-center gap-2 ${
+            className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
               activeTab === "credits"
-                ? "bg-slate-800 text-white shadow-sm"
+                ? "bg-slate-900 text-white shadow-xs"
                 : isVerified
-                ? "text-slate-400 hover:text-slate-200"
-                : "opacity-40 cursor-not-allowed text-slate-600"
+                ? "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                : "opacity-40 cursor-not-allowed text-slate-400"
             }`}
           >
             <Coins className="w-3.5 h-3.5 text-amber-400" />
@@ -208,23 +208,23 @@ export default function CleanMinimalApp() {
         </div>
 
         {/* 1-Click Scenario Preset Toggle */}
-        <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs w-full sm:w-auto justify-center">
+        <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs w-full sm:w-auto justify-center">
           <button
             onClick={() => handleBatchSwitch("clean")}
-            className={`px-3 py-1 rounded-lg font-medium transition-all ${
+            className={`px-3 py-1 rounded-lg font-semibold transition-all ${
               batchType === "clean"
-                ? "bg-emerald-500 text-slate-950 font-bold"
-                : "text-slate-400 hover:text-white"
+                ? "bg-emerald-600 text-white shadow-xs"
+                : "text-slate-600 hover:text-slate-900"
             }`}
           >
             Authentic Batch
           </button>
           <button
             onClick={() => handleBatchSwitch("fraud")}
-            className={`px-3 py-1 rounded-lg font-medium transition-all ${
+            className={`px-3 py-1 rounded-lg font-semibold transition-all ${
               batchType === "fraud"
-                ? "bg-red-500 text-white font-bold"
-                : "text-slate-400 hover:text-white"
+                ? "bg-red-600 text-white shadow-xs"
+                : "text-slate-600 hover:text-slate-900"
             }`}
           >
             Fraudulent Batch
@@ -233,31 +233,31 @@ export default function CleanMinimalApp() {
       </div>
 
       {/* Main Clean Card View */}
-      <div className="bg-slate-900/60 border border-slate-800/80 rounded-3xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl space-y-6">
+      <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
         {/* ========================================================================= */}
         {/* TAB 1: DOCUMENTS */}
         {/* ========================================================================= */}
         {activeTab === "docs" && (
           <div className="space-y-6 animate-in fade-in duration-150">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
               <div>
-                <h3 className="text-base font-bold text-white">Inbound Evidence Package</h3>
-                <p className="text-xs text-slate-400">Lab reports, weighbridge terminal slips &amp; recycling scope certificates.</p>
+                <h3 className="text-base font-bold text-slate-900">Inbound Evidence Package</h3>
+                <p className="text-xs text-slate-500">Lab reports, weighbridge terminal slips &amp; recycling scope certificates.</p>
               </div>
 
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setIsUploadOpen(true)}
-                  className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs flex items-center gap-1.5 border border-slate-700 transition-all hover:scale-105"
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs flex items-center gap-1.5 border border-slate-200 transition-all hover:scale-105"
                 >
-                  <UploadCloud className="w-4 h-4 text-emerald-400" />
+                  <UploadCloud className="w-4 h-4 text-emerald-600" />
                   <span>Upload Document</span>
                 </button>
 
                 <button
                   onClick={handleRunAudit}
                   disabled={isAuditing}
-                  className="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition-all hover:scale-105"
+                  className="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-2 shadow-sm transition-all hover:scale-105"
                 >
                   {isAuditing ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Scale className="w-3.5 h-3.5" />}
                   <span>Run AI Audit &rarr;</span>
@@ -270,14 +270,14 @@ export default function CleanMinimalApp() {
               {/* Primary Upload Dropzone Card */}
               <div
                 onClick={() => fileInputRef.current?.click()}
-                className="p-5 rounded-2xl bg-emerald-950/20 border-2 border-dashed border-emerald-500/40 hover:border-emerald-400 hover:bg-emerald-950/30 cursor-pointer transition-all flex flex-col items-center justify-center text-center gap-2 group min-h-[96px]"
+                className="p-5 rounded-2xl bg-emerald-50/60 border-2 border-dashed border-emerald-300 hover:border-emerald-500 hover:bg-emerald-50 cursor-pointer transition-all flex flex-col items-center justify-center text-center gap-2 group min-h-[96px]"
               >
-                <div className="w-9 h-9 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                <div className="w-9 h-9 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-700 group-hover:scale-110 transition-transform">
                   <UploadCloud className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-xs font-bold text-emerald-300 block">+ Click to Upload Document / Lab Report</span>
-                  <span className="text-[10px] text-slate-400">Supports PDF, JPG, PNG, CSV, Scans</span>
+                  <span className="text-xs font-bold text-emerald-900 block">+ Click to Upload Document / Lab Report</span>
+                  <span className="text-[10px] text-slate-500">Supports PDF, JPG, PNG, CSV, Scans</span>
                 </div>
               </div>
 
@@ -285,18 +285,18 @@ export default function CleanMinimalApp() {
                 <div
                   key={doc.id}
                   onClick={() => setInspectingDoc(doc)}
-                  className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80 hover:border-slate-700 cursor-pointer transition-all flex items-center justify-between group"
+                  className="p-4 rounded-2xl bg-slate-50/70 border border-slate-200 hover:border-slate-300 hover:bg-slate-50 cursor-pointer transition-all flex items-center justify-between group shadow-2xs"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform">
+                    <div className="w-9 h-9 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-emerald-600 group-hover:scale-105 transition-transform shadow-2xs">
                       <FileText className="w-4 h-4" />
                     </div>
                     <div>
-                      <h4 className="text-xs font-bold text-white group-hover:text-emerald-300 transition-colors line-clamp-1">{doc.fileName}</h4>
-                      <p className="text-[10px] text-slate-400 font-mono">{doc.quantityKg.toLocaleString()} kg • {doc.composition.cottonPercentage}% Cotton</p>
+                      <h4 className="text-xs font-bold text-slate-900 group-hover:text-emerald-700 transition-colors line-clamp-1">{doc.fileName}</h4>
+                      <p className="text-[10px] text-slate-500 font-mono">{doc.quantityKg.toLocaleString()} kg • {doc.composition.cottonPercentage}% Cotton</p>
                     </div>
                   </div>
-                  <span className="text-[10px] font-mono text-slate-500 group-hover:text-emerald-400">Inspect &rarr;</span>
+                  <span className="text-[10px] font-mono text-slate-400 group-hover:text-emerald-700 font-semibold">Inspect &rarr;</span>
                 </div>
               ))}
             </div>
@@ -308,39 +308,39 @@ export default function CleanMinimalApp() {
         {/* ========================================================================= */}
         {activeTab === "audit" && (
           <div className="space-y-6 animate-in fade-in duration-150">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
               <div>
-                <h3 className="text-base font-bold text-white">Conservation of Mass Audit</h3>
-                <p className="text-xs text-slate-400">Verifying material movement from scrap generation to recycled yarn output.</p>
+                <h3 className="text-base font-bold text-slate-900">Conservation of Mass Audit</h3>
+                <p className="text-xs text-slate-500">Verifying material movement from scrap generation to recycled yarn output.</p>
               </div>
 
               {isVerified ? (
-                <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4" /> 100% RECONCILED
+                <span className="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold flex items-center gap-1.5 shadow-2xs">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600" /> 100% RECONCILED
                 </span>
               ) : (
-                <span className="px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold flex items-center gap-1.5">
-                  <AlertTriangle className="w-4 h-4" /> ANOMALY DETECTED
+                <span className="px-3 py-1 rounded-full bg-red-50 border border-red-200 text-red-800 text-xs font-bold flex items-center gap-1.5 shadow-2xs">
+                  <AlertTriangle className="w-4 h-4 text-red-600" /> ANOMALY DETECTED
                 </span>
               )}
             </div>
 
             {/* Mass Flow Bar */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center text-xs">
-              <div className="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-1">
-                <span className="text-[10px] font-mono text-slate-400 uppercase">1. Inbound Scrap</span>
-                <div className="text-lg font-bold text-white">{auditResult.ledger.wasteGeneratedKg.toLocaleString()} kg</div>
+              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+                <span className="text-[10px] font-mono text-slate-500 uppercase">1. Inbound Scrap</span>
+                <div className="text-lg font-bold text-slate-900">{auditResult.ledger.wasteGeneratedKg.toLocaleString()} kg</div>
               </div>
-              <div className="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-1">
-                <span className="text-[10px] font-mono text-amber-400 uppercase">2. Transit Variance</span>
-                <div className="text-lg font-bold text-amber-400">-{auditResult.ledger.transportLossKg} kg</div>
+              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+                <span className="text-[10px] font-mono text-amber-600 uppercase font-semibold">2. Transit Variance</span>
+                <div className="text-lg font-bold text-amber-700">-{auditResult.ledger.transportLossKg} kg</div>
               </div>
-              <div className="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-1">
-                <span className="text-[10px] font-mono text-slate-400 uppercase">3. Spinning Loss</span>
-                <div className="text-lg font-bold text-slate-300">-{auditResult.ledger.processingLossKg.toLocaleString()} kg</div>
+              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+                <span className="text-[10px] font-mono text-slate-500 uppercase">3. Spinning Loss</span>
+                <div className="text-lg font-bold text-slate-700">-{auditResult.ledger.processingLossKg.toLocaleString()} kg</div>
               </div>
               <div className={`p-3.5 rounded-2xl border space-y-1 ${
-                isVerified ? "bg-emerald-950/30 border-emerald-500/30 text-emerald-400" : "bg-red-950/30 border-red-500/30 text-red-400"
+                isVerified ? "bg-emerald-50 border-emerald-200 text-emerald-900" : "bg-red-50 border-red-200 text-red-900"
               }`}>
                 <span className="text-[10px] font-mono uppercase font-bold">4. Recycled Output</span>
                 <div className="text-lg font-bold">{auditResult.ledger.recycledYarnProducedKg.toLocaleString()} kg</div>
@@ -349,12 +349,12 @@ export default function CleanMinimalApp() {
 
             {/* If fraud */}
             {auditResult.anomalies.length > 0 && (
-              <div className="p-4 rounded-2xl bg-red-950/30 border border-red-500/30 text-xs space-y-2">
-                <div className="font-bold text-red-400 flex items-center gap-1.5">
-                  <AlertTriangle className="w-4 h-4" />
+              <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-xs space-y-2">
+                <div className="font-bold text-red-800 flex items-center gap-1.5">
+                  <AlertTriangle className="w-4 h-4 text-red-600" />
                   <span>Physical Mass Violation Detected</span>
                 </div>
-                <p className="text-slate-300">
+                <p className="text-red-700">
                   Claimed output ({auditResult.ledger.recycledYarnProducedKg.toLocaleString()} kg) exceeds verified net input ({auditResult.ledger.recyclerReceivedKg.toLocaleString()} kg). Zero credits issued.
                 </p>
               </div>
@@ -362,10 +362,10 @@ export default function CleanMinimalApp() {
 
             {isVerified && (
               <div className="flex items-center justify-between pt-2">
-                <span className="text-xs font-mono text-emerald-400">Recovery Rate: {auditResult.ledger.recoveryRatePercent}%</span>
+                <span className="text-xs font-mono text-emerald-700 font-semibold">Recovery Rate: {auditResult.ledger.recoveryRatePercent}%</span>
                 <button
                   onClick={() => setActiveTab("credits")}
-                  className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-lg shadow-amber-500/20 transition-all hover:scale-105"
+                  className="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs flex items-center gap-2 shadow-xs"
                 >
                   <Coins className="w-3.5 h-3.5" />
                   <span>Issue 8,200 Circularity Credits &rarr;</span>
@@ -380,34 +380,34 @@ export default function CleanMinimalApp() {
         {/* ========================================================================= */}
         {activeTab === "credits" && (
           <div className="space-y-6 animate-in fade-in duration-150">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
               <div>
-                <h3 className="text-base font-bold text-white">Textile Recycling Credits (TRCs)</h3>
-                <p className="text-xs text-slate-400">1 TRC = 1 kg verified recycled fiber. Brands retire credits to prove compliance.</p>
+                <h3 className="text-base font-bold text-slate-900">Textile Recycling Credits (TRCs)</h3>
+                <p className="text-xs text-slate-500">1 TRC = 1 kg verified recycled fiber. Brands retire credits to prove compliance.</p>
               </div>
 
               <span className={`px-3 py-1 rounded-full text-xs font-bold font-mono ${
                 creditStatus === "RETIRED"
-                  ? "bg-amber-500/20 text-amber-300 border border-amber-500/30"
-                  : "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
+                  ? "bg-amber-100 text-amber-800 border border-amber-300"
+                  : "bg-emerald-100 text-emerald-800 border border-emerald-300"
               }`}>
                 {creditStatus === "RETIRED" ? "🔥 BURNED & RETIRED" : "🪙 ACTIVE IN WALLET"}
               </span>
             </div>
 
             {/* Credit Overview */}
-            <div className="p-6 rounded-2xl bg-slate-950 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="p-6 rounded-2xl bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
               <div className="space-y-1 text-center sm:text-left">
                 <span className="text-[10px] font-mono text-slate-400 uppercase">Verified Balance</span>
                 <div className="text-3xl font-black text-amber-400">8,200 TRCs</div>
-                <p className="text-xs text-slate-400">Allocated to <strong>Nordic EcoWear Global</strong></p>
+                <p className="text-xs text-slate-300">Allocated to <strong>Nordic EcoWear Global</strong></p>
               </div>
 
               {creditStatus === "ACTIVE" ? (
                 <button
                   onClick={handleRetire}
                   disabled={isRetiring}
-                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-red-500 hover:from-amber-400 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-lg shadow-amber-500/20 transition-all hover:scale-105"
+                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-red-500 hover:from-amber-400 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-sm transition-all hover:scale-105"
                 >
                   <Flame className="w-4 h-4" />
                   <span>{isRetiring ? "Retiring..." : "Retire / Burn 8,200 TRCs for Compliance"}</span>
@@ -415,7 +415,7 @@ export default function CleanMinimalApp() {
               ) : (
                 <button
                   onClick={() => setViewingCert(true)}
-                  className="px-5 py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 font-bold text-xs flex items-center gap-2"
+                  className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-2"
                 >
                   <Award className="w-4 h-4" />
                   <span>View Proof Certificate</span>
@@ -424,9 +424,9 @@ export default function CleanMinimalApp() {
             </div>
 
             {creditStatus === "RETIRED" && (
-              <div className="p-4 rounded-xl bg-amber-950/20 border border-amber-500/30 text-xs text-amber-300 flex items-center justify-between">
+              <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-center justify-between">
                 <span>✓ Permanently burned to substantiate EU DPP &amp; CSRD Scope 3 compliance.</span>
-                <button onClick={() => setViewingCert(true)} className="underline font-bold text-white">Certificate #CERT-RET-2026-9912</button>
+                <button onClick={() => setViewingCert(true)} className="underline font-bold text-amber-800 hover:text-amber-950">Certificate #CERT-RET-2026-9912</button>
               </div>
             )}
           </div>

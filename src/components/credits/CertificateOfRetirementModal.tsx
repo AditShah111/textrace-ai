@@ -20,107 +20,105 @@ export default function CertificateOfRetirementModal({ record, credit, isOpen, o
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="bg-slate-900 border border-amber-500/50 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-10 shadow-2xl space-y-6 relative">
-        {/* Holographic Border / Header */}
-        <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs animate-in fade-in duration-150">
+      <div className="bg-white border border-amber-300 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl space-y-6 relative">
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400 bg-amber-950/80 px-2.5 py-1 rounded-md border border-amber-500/30 font-bold">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-amber-800 bg-amber-50 px-2.5 py-1 rounded-md border border-amber-200 font-bold">
               Official Proof of Circularity Claim
             </span>
           </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-white p-2">✕</button>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-700 p-2 font-bold text-sm">✕</button>
         </div>
 
-        {/* Certificate Body */}
-        <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 border border-amber-500/30 text-center space-y-6 shadow-xl relative overflow-hidden">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-emerald-500 flex items-center justify-center text-slate-950 font-bold mx-auto shadow-lg shadow-amber-500/20">
-            <Award className="w-9 h-9" />
+        {/* Certificate Body (Parchment White & Gold) */}
+        <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-amber-50/40 via-white to-amber-50/20 border-2 border-amber-200 text-center space-y-5 shadow-xs relative overflow-hidden">
+          <div className="w-14 h-14 rounded-2xl bg-amber-500 flex items-center justify-center text-white font-bold mx-auto shadow-md shadow-amber-500/20">
+            <Award className="w-8 h-8" />
           </div>
 
           <div className="space-y-1">
-            <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight uppercase">
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight uppercase">
               Certificate of Circularity Retirement
             </h2>
-            <p className="text-xs font-mono text-amber-400">
-              Certificate ID: {record.certificateId} • Timestamp: {new Date(record.retirementTimestamp).toUTCString()}
+            <p className="text-[11px] font-mono text-amber-800 font-semibold">
+              Certificate ID: {record.certificateId} • Issued: {new Date(record.retirementTimestamp).toLocaleDateString()}
             </p>
           </div>
 
-          <p className="text-xs text-slate-300 max-w-lg mx-auto leading-relaxed">
+          <p className="text-xs text-slate-600 max-w-lg mx-auto leading-relaxed">
             This certifies that <strong>{credit?.creditAmountKg ? credit.creditAmountKg.toLocaleString() : "8,200"} kg</strong> of independently verified textile recycling credits (TRCs) have been permanently retired and burned from the global registry to satisfy:
           </p>
 
-          <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs font-semibold text-emerald-300">
+          <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-900">
             {record.complianceMandate}
           </div>
 
           {/* Details Grid */}
-          <div className="grid grid-cols-2 gap-3 text-left text-xs bg-slate-950/60 p-4 rounded-xl border border-slate-800 font-mono">
+          <div className="grid grid-cols-2 gap-3 text-left text-xs bg-slate-50 p-4 rounded-xl border border-slate-200 font-mono">
             <div>
-              <span className="text-slate-400 block text-[10px]">Beneficiary Brand:</span>
-              <span className="text-white font-bold">{record.beneficiaryBrand}</span>
+              <span className="text-slate-500 block text-[10px] uppercase">Beneficiary Entity:</span>
+              <span className="font-bold text-slate-900">{record.beneficiaryBrand}</span>
             </div>
             <div>
-              <span className="text-slate-400 block text-[10px]">Product / Line:</span>
-              <span className="text-slate-200">{record.productLine}</span>
+              <span className="text-slate-500 block text-[10px] uppercase">Garment Line / Order:</span>
+              <span className="font-bold text-slate-900">{record.productLine}</span>
             </div>
             <div>
-              <span className="text-slate-400 block text-[10px]">Order Reference:</span>
-              <span className="text-slate-200">{record.orderReference}</span>
+              <span className="text-slate-500 block text-[10px] uppercase">Original Batch / VCR:</span>
+              <span className="font-bold text-slate-900">{credit?.vcrId || "TX-000184"}</span>
             </div>
             <div>
-              <span className="text-slate-400 block text-[10px]">Credit Serial Range:</span>
-              <span className="text-amber-400 font-bold">{credit?.serialNumberRange || "#00001 - #08200"}</span>
+              <span className="text-slate-500 block text-[10px] uppercase">Token Serial Range:</span>
+              <span className="font-bold text-amber-800">{credit?.serialNumberRange || "#00001 - #08200"}</span>
             </div>
           </div>
 
-          {/* Environmental Offset Verified */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="p-3 rounded-xl bg-emerald-950/30 border border-emerald-500/20 text-xs space-y-1">
-              <div className="flex items-center justify-center gap-1 text-emerald-400 font-medium">
-                <Leaf className="w-3.5 h-3.5" />
-                <span>CO₂ Offset</span>
-              </div>
-              <div className="text-lg font-black text-white">{(record.co2OffsetKg / 1000).toFixed(1)} Tons</div>
+          {/* Environmental Savings */}
+          <div className="grid grid-cols-2 gap-3 pt-2">
+            <div className="p-3 rounded-xl bg-white border border-emerald-200 flex items-center justify-center gap-2 text-emerald-800 shadow-2xs">
+              <Leaf className="w-4 h-4 text-emerald-600" />
+              <span className="font-bold text-xs">{(record.co2OffsetKg || 21320).toLocaleString()} kg CO₂ Avoided</span>
             </div>
-            <div className="p-3 rounded-xl bg-cyan-950/30 border border-cyan-500/20 text-xs space-y-1">
-              <div className="flex items-center justify-center gap-1 text-cyan-400 font-medium">
-                <Droplet className="w-3.5 h-3.5" />
-                <span>Water Preserved</span>
-              </div>
-              <div className="text-lg font-black text-cyan-400">{((record.waterSavedLiters) / 1000000).toFixed(2)}M Liters</div>
+            <div className="p-3 rounded-xl bg-white border border-cyan-200 flex items-center justify-center gap-2 text-cyan-800 shadow-2xs">
+              <Droplet className="w-4 h-4 text-cyan-600" />
+              <span className="font-bold text-xs">{(record.waterSavedLiters || 1980000).toLocaleString()} L Water Saved</span>
             </div>
           </div>
 
-          {/* QR & Hash Seal */}
-          <div className="flex items-center justify-between pt-4 border-t border-slate-800 text-left">
-            <div className="space-y-1 max-w-xs text-[10px] font-mono text-slate-400">
-              <div className="flex items-center gap-1 text-slate-300 font-bold">
-                <Lock className="w-3 h-3 text-amber-400" />
-                <span>Cryptographic Proof Hash:</span>
+          {/* QR Verification & SHA-256 Signature */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-amber-200/80 text-left">
+            <div className="space-y-1">
+              <span className="text-[10px] uppercase font-mono text-slate-500 block font-semibold">
+                Cryptographic Proof Signature:
+              </span>
+              <p className="font-mono text-[10px] text-slate-600 break-all max-w-sm">
+                {record.proofHash}
+              </p>
+              <div className="flex items-center gap-1.5 text-[11px] text-emerald-700 font-bold pt-1">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Zero Double-Counting Verified</span>
               </div>
-              <p className="truncate text-slate-400">{record.proofHash}</p>
-              <p className="text-emerald-400">✓ Cryptographically Signed &amp; Permanently Burned</p>
             </div>
 
-            <div className="p-2 bg-white rounded-xl">
-              <QRCodeSVG value={typeof window !== "undefined" ? window.location.href : "https://textrace.ai/credits"} size={70} />
+            <div className="p-2 bg-white rounded-xl border border-slate-200 shadow-2xs shrink-0">
+              <QRCodeSVG value={`https://textrace-ai.onrender.com/dpp/TX-000184?cert=${record.certificateId}`} size={70} />
             </div>
           </div>
         </div>
 
-        {/* Modal Actions */}
+        {/* Actions */}
         <div className="flex items-center justify-between pt-2">
           <button
             onClick={onClose}
-            className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold"
+            className="px-4 py-2 rounded-xl text-slate-600 hover:text-slate-900 font-semibold text-xs"
           >
             Close
           </button>
           <button
             onClick={handlePrint}
-            className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold flex items-center gap-2 shadow-lg shadow-amber-500/20"
+            className="px-5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-2 shadow-xs transition-all hover:scale-105"
           >
             <Printer className="w-4 h-4" />
             <span>Print Official Certificate</span>
