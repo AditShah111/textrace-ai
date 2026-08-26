@@ -23,7 +23,7 @@ export default function HeroSection() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel border-emerald-500/30 text-emerald-300 text-xs font-semibold shadow-sm"
           >
             <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-            <span>AICA Startup Innovation: AI Document Intelligence + Circular Traceability</span>
+            <span>Next-Gen Circularity • Continuous Document Verification &amp; Traceability</span>
           </motion.div>
 
           {/* Main Title Hook */}

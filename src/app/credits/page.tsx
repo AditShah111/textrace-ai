@@ -112,7 +112,7 @@ export default function RecyclingCreditsRegistryPage() {
         <div>
           <div className="flex items-center gap-2 text-xs font-mono text-amber-400 mb-1">
             <Coins className="w-4 h-4" />
-            <span>IDEA 4 + IDEA 2 INTEGRATED • DIGITAL CIRCULARITY REGISTRY</span>
+            <span>ENTERPRISE CIRCULARITY CREDITS • VERIFIABLE MATERIAL REGISTRY</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
             Textile Recycling Credit (TRC) Registry
@@ -144,12 +144,12 @@ export default function RecyclingCreditsRegistryPage() {
         </div>
       </div>
 
-      {/* Mechanism Visualizer: Idea 2 (Parser) -> Idea 4 (Credits) */}
+      {/* Mechanism Visualizer: Verification -> Credit Issuance & Burn */}
       <div className="glass-panel p-6 sm:p-8 rounded-3xl border-slate-800 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800/80 pb-4">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-amber-400" />
-            <h3 className="text-base font-bold text-white">How TexTrace AI Generates &amp; Governs Recycling Credits</h3>
+            <h3 className="text-base font-bold text-white">Continuous Verification &amp; Credit Issuance Protocol</h3>
           </div>
           <span className="text-xs font-mono text-emerald-400 bg-emerald-950/80 px-2.5 py-1 rounded-md border border-emerald-500/20">
             Zero Double-Counting Architecture
@@ -160,7 +160,7 @@ export default function RecyclingCreditsRegistryPage() {
           {/* Step 1 */}
           <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
             <span className="text-[10px] font-mono uppercase text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded">
-              1. AI Ingestion (Idea 2)
+              1. AI Document Ingestion
             </span>
             <h4 className="font-bold text-white text-sm">Lab &amp; Spec Extraction</h4>
             <p className="text-slate-400 leading-relaxed">
@@ -171,9 +171,9 @@ export default function RecyclingCreditsRegistryPage() {
           {/* Step 2 */}
           <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
             <span className="text-[10px] font-mono uppercase text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded">
-              2. Mass Audit (Idea 2)
+              2. Conservation of Mass Audit
             </span>
-            <h4 className="font-bold text-white text-sm">Conservation Reconcile</h4>
+            <h4 className="font-bold text-white text-sm">Tolerance Reconciliation</h4>
             <p className="text-slate-400 leading-relaxed">
               Engine subtracts spinning loss (-1,720 kg) and validates exact 82.66% recovery rate with zero tolerance for phantom mass.
             </p>
@@ -182,7 +182,7 @@ export default function RecyclingCreditsRegistryPage() {
           {/* Step 3 */}
           <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
             <span className="text-[10px] font-mono uppercase text-amber-400 bg-amber-950/80 px-2 py-0.5 rounded">
-              3. Token Minting (Idea 4)
+              3. Token Minting
             </span>
             <h4 className="font-bold text-white text-sm">Cryptographic TRC Mint</h4>
             <p className="text-slate-400 leading-relaxed">
@@ -193,7 +193,7 @@ export default function RecyclingCreditsRegistryPage() {
           {/* Step 4 */}
           <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
             <span className="text-[10px] font-mono uppercase text-purple-400 bg-purple-950/80 px-2 py-0.5 rounded">
-              4. B2B Allocation (Idea 4)
+              4. B2B Allocation &amp; Custody
             </span>
             <h4 className="font-bold text-white text-sm">Brand Ownership Transfer</h4>
             <p className="text-slate-400 leading-relaxed">
@@ -204,7 +204,7 @@ export default function RecyclingCreditsRegistryPage() {
           {/* Step 5 */}
           <div className="p-4 rounded-2xl bg-amber-950/30 border border-amber-500/40 space-y-2">
             <span className="text-[10px] font-mono uppercase text-amber-300 bg-amber-500/20 px-2 py-0.5 rounded font-bold">
-              5. Permanent Burn (Idea 4)
+              5. Permanent Retirement &amp; Burn
             </span>
             <h4 className="font-bold text-amber-300 text-sm">Retirement Certificate</h4>
             <p className="text-slate-300 leading-relaxed">

@@ -377,7 +377,7 @@ export const CLEAN_VCR_RECORD: VerifiedCircularityRecord = {
 export const DEMO_SCENARIOS: AuditScenario[] = [
   {
     id: "clean-indian-chain",
-    name: "Scenario 1: Clean Indian Garment Supply Chain",
+    name: "Verified Multi-Tier Supply Chain Transaction",
     badge: "100% Audit Pass",
     type: "clean_pass",
     description: "Tirupur cutting mill → Coimbatore mechanical recycler → Erode yarn spinner → Nordic EcoWear. Clean mass conservation, valid RCS certification, zero anomalies.",
@@ -389,7 +389,7 @@ export const DEMO_SCENARIOS: AuditScenario[] = [
   },
   {
     id: "fraud-manipulated-chain",
-    name: "Scenario 2: Manipulated Mass & Expired Scope Fraud",
+    name: "Mass-Balance Anomaly & Expired Scope Alert",
     badge: "3 Critical Anomalies Flagged",
     type: "fraud_fail",
     description: "Surat waste trader → Erode spinner. Input is 10,000 kg but claimed recycled output is 12,500 kg (violating mass conservation), GRS cert is 14 months expired, and cotton ratio was falsified.",
@@ -401,7 +401,7 @@ export const DEMO_SCENARIOS: AuditScenario[] = [
   },
   {
     id: "custom-sandbox-upload",
-    name: "Scenario 3: Live Custom Document Upload Sandbox",
+    name: "Live Document Ingestion Sandbox",
     badge: "Interactive AI Parser",
     type: "custom_upload",
     description: "Drag-and-drop your own mill invoices, lab test PDFs, or weighbridge slips. TexTrace AI parses unstructured evidence and recalculates mass balance in real-time.",

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ShieldCheck, Cpu, FileCheck, Layers, QrCode, ArrowRight, Sparkles, Coins } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "TexTrace AI | AI-Powered Verification & Digital Traceability for Recycled Textiles",
+  title: "TexTrace AI | Automated Document Verification & Digital Circularity Platform",
   description:
     "TexTrace AI converts fragmented textile supply chain evidence into a continuously verified digital chain of custody with AI document intelligence and mass-balance reconciliation.",
 };
@@ -18,13 +18,13 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className="min-h-screen flex flex-col bg-[#090d16] text-slate-100 antialiased selection:bg-emerald-500/30 selection:text-emerald-200">
         {/* Top Notification Banner */}
-        <div className="bg-gradient-to-r from-amber-950/80 via-slate-900 to-emerald-950/80 border-b border-amber-500/20 py-2 px-4 text-xs text-center text-amber-300 font-medium flex items-center justify-center gap-2">
-          <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+        <div className="bg-gradient-to-r from-emerald-950/80 via-slate-900 to-amber-950/80 border-b border-emerald-500/20 py-2 px-4 text-xs text-center text-emerald-300 font-medium flex items-center justify-center gap-2">
+          <Sparkles className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
           <span>
-            <strong>TexTrace AI Live v2.4</strong> — Idea 2 (AI Document Intelligence) + Idea 4 (Digital Recycling Credit Registry)
+            <strong>TexTrace AI Enterprise v2.4</strong> — Automated AI Document Verification &amp; Verifiable Circularity Credits
           </span>
-          <span className="hidden sm:inline-block px-2 py-0.5 bg-amber-500/20 rounded text-[10px] text-amber-300 font-mono">
-            1 TRC = 1 kg Verified Scrap
+          <span className="hidden sm:inline-block px-2 py-0.5 bg-emerald-500/20 rounded text-[10px] text-emerald-300 font-mono">
+            1 TRC = 1 kg Verified Fiber
           </span>
         </div>
 
@@ -60,19 +60,13 @@ export default function RootLayout({
               >
                 <Cpu className="w-4 h-4" />
                 AI Audit Engine
-                <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded font-mono">
-                  Idea 2
-                </span>
               </Link>
               <Link
                 href="/credits"
                 className="px-3 py-2 rounded-lg hover:text-white hover:bg-slate-800/60 transition-colors flex items-center gap-1.5 text-amber-400 font-semibold"
               >
                 <Coins className="w-4 h-4" />
-                Recycling Credits
-                <span className="text-[10px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded font-mono">
-                  Idea 4
-                </span>
+                Circularity Credits
               </Link>
               <Link
                 href="/dashboard"
@@ -118,7 +112,7 @@ export default function RootLayout({
                 <span className="text-lg font-bold text-white">TexTrace AI</span>
               </div>
               <p className="text-sm text-slate-400 max-w-md leading-relaxed">
-                Combining AI Document Verification (Idea 2) with Digital Circularity &amp; Recycling Credit Registry (Idea 4). Minting tamper-evident material credits backed by physical mass conservation.
+                Automated AI Document Verification and Digital Circularity Credit Registry for global fashion supply chains. Minting tamper-evident material credits backed by physical mass conservation.
               </p>
               <div className="flex items-center gap-3 text-xs text-slate-400 pt-2">
                 <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-400 inline-block"></span> 1 TRC = 1 kg Verified Fiber</span>
@@ -129,12 +123,12 @@ export default function RootLayout({
 
             <div>
               <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-300 mb-3">
-                Core Modules
+                Platform Capabilities
               </h4>
               <ul className="space-y-2 text-sm text-slate-400">
-                <li><Link href="/audit" className="hover:text-emerald-400 transition-colors">Idea 2: AI Document Intelligence</Link></li>
+                <li><Link href="/audit" className="hover:text-emerald-400 transition-colors">AI Document Intelligence</Link></li>
                 <li><Link href="/audit" className="hover:text-emerald-400 transition-colors">Mass-Balance Reconciliation</Link></li>
-                <li><Link href="/credits" className="hover:text-amber-400 transition-colors">Idea 4: Recycling Credit Registry</Link></li>
+                <li><Link href="/credits" className="hover:text-amber-400 transition-colors">Circularity Credit Registry</Link></li>
                 <li><Link href="/credits" className="hover:text-amber-400 transition-colors">TRC Token Minting &amp; Burn</Link></li>
                 <li><Link href="/dpp/TX-000184" className="hover:text-emerald-400 transition-colors">Digital Product Passport (DPP)</Link></li>
               </ul>
@@ -142,20 +136,20 @@ export default function RootLayout({
 
             <div>
               <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-300 mb-3">
-                Live Demonstrations
+                Interactive Demos
               </h4>
               <ul className="space-y-2 text-sm text-slate-400">
-                <li><Link href="/audit?scenario=clean-indian-chain" className="hover:text-emerald-400 transition-colors">Clean Indian Mill Supply Chain</Link></li>
-                <li><Link href="/audit?scenario=fraud-manipulated-chain" className="hover:text-emerald-400 transition-colors">Mass Fraud &amp; Expired Cert Anomaly</Link></li>
-                <li><Link href="/credits" className="hover:text-amber-400 transition-colors">Retire / Burn 8,200 TRCs</Link></li>
+                <li><Link href="/audit?scenario=clean-indian-chain" className="hover:text-emerald-400 transition-colors">Verified Supply Chain Audit</Link></li>
+                <li><Link href="/audit?scenario=fraud-manipulated-chain" className="hover:text-emerald-400 transition-colors">Mass Anomaly &amp; Discrepancy Detection</Link></li>
+                <li><Link href="/credits" className="hover:text-amber-400 transition-colors">Retire / Burn Circularity Credits</Link></li>
                 <li><Link href="/dpp/TX-000184" className="hover:text-emerald-400 transition-colors">Scan Batch TX-000184 Hangtag</Link></li>
               </ul>
             </div>
           </div>
 
           <div className="max-w-7xl mx-auto mt-8 pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
-            <p>© 2026 TexTrace AI. Enterprise Textile Circularity &amp; Recycling Credit Registry.</p>
-            <p className="font-mono text-slate-400">Protocol v2.4-AICA | SHA-256 Cryptographic Token Engine</p>
+            <p>© 2026 TexTrace AI. Enterprise Textile Circularity &amp; Verification Platform.</p>
+            <p className="font-mono text-slate-400">VeriEngine Protocol v2.4 | SHA-256 Cryptographic Token Engine</p>
           </div>
         </footer>
       </body>

@@ -1,6 +1,6 @@
 # TexTrace AI — Full-Stack Verification & Circularity Credit SaaS
 
-> **AI-Powered Textile Waste Verification (Idea 2) + Digital Recycling Credit Registry (Idea 4)**
+> **AI-Powered Textile Waste Verification & Digital Circularity Credit Registry**
 
 TexTrace AI operates with **Zero CapEx and Zero Inventory Handling**, converting fragmented supply chain documents (invoices, weighbridge slips, lab certificates, scope certs) into verified digital chains of custody and minting tamper-evident **Textile Recycling Credits (TRCs)**.
 

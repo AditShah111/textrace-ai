@@ -150,7 +150,7 @@ function AuditWorkspaceContent() {
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-            Select Competition &amp; Live-Demo Scenario:
+            Supply Chain Audit Scenarios:
           </span>
           <span className="text-[11px] text-emerald-400 font-mono">1-Click Live Test</span>
         </div>
