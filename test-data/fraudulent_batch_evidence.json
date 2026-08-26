@@ -1,0 +1,101 @@
+{
+  "batchScenario": "Manipulated Mass & Expired Certification Fraud Scheme",
+  "expectedAuditStatus": "FAILED",
+  "auditScore": 12,
+  "aiRiskRating": "CRITICAL",
+  "batchDetails": {
+    "batchId": "BATCH-2026-MANIP-990",
+    "vcrId": "TX-000990",
+    "originFacility": "Shree Textile Waste Traders (Surat, India)",
+    "recyclerEntity": "Apex Recycled Yarns Ltd (Erode, India)",
+    "destinationBrand": "Global FastFashion Retailer",
+    "materialType": "Post-Industrial Unsorted Polyester/Cotton Clip",
+    "declaredInputKg": 10000,
+    "netWeighedInputKg": 9950,
+    "claimedOutputKg": 12500,
+    "phantomYieldDiscrepancyKg": 2550,
+    "impliedRecoveryRatePercent": 125.6,
+    "mintedCreditsKg": 0,
+    "auditAction": "MINTING BLOCKED - FRAUD DETECTED"
+  },
+  "flaggedAnomalies": [
+    {
+      "anomalyId": "ANOM-MASS-01",
+      "severity": "CRITICAL",
+      "title": "Conservation of Mass Violation (+2,550 kg Phantom Yield)",
+      "description": "Claimed yarn output (12,500 kg) exceeds total verified inbound raw material (9,950 kg net). Implied recovery rate of 125.6% is physically impossible.",
+      "standardViolated": "ISO 22095:2020 Clause 6.3 & First Law of Thermodynamics"
+    },
+    {
+      "anomalyId": "ANOM-CERT-02",
+      "severity": "CRITICAL",
+      "title": "Expired Global Recycled Standard (GRS) Scope Certificate",
+      "description": "Attached GRS Certificate (GRS-CU-881920-EXP) expired on June 30, 2025 (14 months past validity date).",
+      "standardViolated": "Textile Exchange GRS v4.0 Section A3"
+    },
+    {
+      "anomalyId": "ANOM-SPEC-03",
+      "severity": "HIGH",
+      "title": "Composition Spec Discrepancy & Mislabeling",
+      "description": "Inbound raw scrap was declared as 60% Cotton / 40% PET, but finished yarn invoice claims 95% Recycled Cotton without raw material input to substantiate the blend.",
+      "standardViolated": "AATCC 20A / ISO 1833 Quantitative Fiber Blending Rules"
+    }
+  ],
+  "documents": [
+    {
+      "id": "doc-fraud-01",
+      "fileName": "INV-SURAT-1102_Unsorted_Scrap.pdf",
+      "documentType": "waste_invoice",
+      "issuer": "Shree Textile Waste Traders, Surat",
+      "targetParty": "Apex Recycled Yarns Ltd",
+      "quantityKg": 10000,
+      "composition": {
+        "cottonPercentage": 60.0,
+        "polyesterPercentage": 40.0,
+        "fiberDescription": "Mixed Shredded Cutting Clips"
+      },
+      "dispatchDate": "2026-08-23",
+      "referenceNumber": "INV-SUR-1102",
+      "confidence": 0.98
+    },
+    {
+      "id": "doc-fraud-02",
+      "fileName": "GRS_Scope_Certificate_EXPIRED_JUNE2025.pdf",
+      "documentType": "recycling_certificate",
+      "issuer": "Control Union Certifications",
+      "targetParty": "Shree Textile Waste Traders",
+      "quantityKg": 10000,
+      "composition": {
+        "cottonPercentage": 60.0,
+        "polyesterPercentage": 40.0,
+        "fiberDescription": "Expired Scope Certificate Attached"
+      },
+      "certification": {
+        "standard": "GRS",
+        "certificateNumber": "GRS-CU-881920-EXP",
+        "validFrom": "2024-07-01",
+        "validUntil": "2025-06-30",
+        "status": "Expired"
+      },
+      "dispatchDate": "2026-08-23",
+      "referenceNumber": "GRS-CU-881920-EXP",
+      "confidence": 0.99
+    },
+    {
+      "id": "doc-fraud-03",
+      "fileName": "GRN-MANIPULATED_12500KG_Claim.pdf",
+      "documentType": "grn",
+      "issuer": "Apex Recycled Yarns Ltd",
+      "targetParty": "Global FastFashion Retailer",
+      "quantityKg": 12500,
+      "composition": {
+        "cottonPercentage": 95.0,
+        "polyesterPercentage": 5.0,
+        "fiberDescription": "Manipulated Claim: 12,500 kg Recycled Yarn from 10,000 kg Input"
+      },
+      "dispatchDate": "2026-08-24",
+      "referenceNumber": "GRN-CLAIM-990",
+      "confidence": 0.95
+    }
+  ]
+}

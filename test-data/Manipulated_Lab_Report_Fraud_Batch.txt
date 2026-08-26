@@ -1,0 +1,41 @@
+================================================================================
+LABORATORY SPECIFICATION & MASS RECONCILIATION AUDIT REPORT
+REPORT NO: LAB-SUR-2026-990-FLAGGED
+DATE OF ISSUE: 24-AUG-2026
+================================================================================
+
+SUPPLIER: Shree Textile Waste Traders, Surat, Gujarat
+SPINNER / RECYCLER: Apex Recycled Yarns Ltd, Erode
+BATCH NUMBER: BATCH-2026-MANIP-990
+INVOICE REFERENCE: INV-SUR-1102
+
+INBOUND RAW MATERIAL DECLARED:
+- Inbound Waste Scrap Invoiced: 10,000.00 KG
+- Declared Raw Blend: 60.0% Cotton / 40.0% Polyester
+- Attached Certificate: GRS Scope Certificate GRS-CU-881920-EXP
+
+OUTWARD CLAIMED FINISHED PRODUCTION:
+- Claimed Recycled Yarn Dispatch: 12,500.00 KG (Dispatch Note GRN-CLAIM-990)
+- Claimed Finished Blend: 95.0% Recycled Cotton / 5.0% Polyester
+
+--------------------------------------------------------------------------------
+FORENSIC AUDIT ANOMALIES FLAGGED BY TEX-TRACE AI ENGINE:
+--------------------------------------------------------------------------------
+1. CRITICAL: MASS CONSERVATION VIOLATION (+2,550.00 KG PHANTOM YIELD)
+   Net Inbound Mass: 9,950.00 KG
+   Claimed Yarn Output: 12,500.00 KG
+   Implied Recovery Rate: 125.63% (Maximum Physical Limit: ~85.0%)
+   Violation: Violates First Law of Thermodynamics and ISO 22095:2020 Mass Balance Rules.
+
+2. CRITICAL: EXPIRED CERTIFICATION (GRS v4.0)
+   Certificate GRS-CU-881920-EXP expired on 30-JUN-2025 (14 Months Expired).
+   Status: Invalid for regulatory offset claims or Digital Product Passport inclusion.
+
+3. HIGH: FIBER COMPOSITION SPECIFICATION FALSIFICATION
+   Inbound raw scrap contained only 60.0% cotton (6,000 kg cotton total).
+   Claimed 95% cotton yarn of 12,500 kg requires 11,875 kg cotton.
+   Deficit: -5,875 kg unaccounted cotton fiber.
+
+AUDITOR DECISION:
+AUDIT FAILED. Zero Textile Recycling Credits (TRCs) minted. Batch quarantined and flagged for regulatory investigation.
+================================================================================

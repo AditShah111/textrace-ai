@@ -1,0 +1,41 @@
+================================================================================
+INTERTEK TESTING SERVICES INDIA PVT. LTD.
+TEXTILE TESTING DIVISION - CHENNAI ACCREDITED LABORATORY
+REPORT NO: INT-IND-2026-8842-AATCC
+DATE OF ISSUE: 21-AUG-2026
+================================================================================
+
+CLIENT: EcoSpin Reclaimers Pvt Ltd, Coimbatore, Tamil Nadu
+SUPPLIER: Sri Lakshmi Garment Mills Ltd, Tirupur
+SAMPLE IDENTIFICATION: Pre-Consumer Combed Single Jersey Cutting Scrap
+BATCH NUMBER: BATCH-2026-IND-8842
+INVOICE REFERENCE: INV-2026-8842
+DECLARED QUANTITY: 10,000.00 KG
+
+TEST METHOD SPECIFICATION:
+- Quantitative Fiber Composition: AATCC 20A / ISO 1833-1:2020
+- Moisture Regain & Tare Extraction: ASTM D629 / ISO 5077
+- Heavy Metals & Restricted Substance List: OEKO-TEX Standard 100 / GRS v4.0
+
+--------------------------------------------------------------------------------
+TEST RESULTS:
+--------------------------------------------------------------------------------
+PARAMETER                    FOUND VALUE        TOLERANCE SPECIFICATION   STATUS
+--------------------------------------------------------------------------------
+Recycled Cotton Fiber Mass:  78.40%             78.00% - 80.00%           PASS
+Polyester (PET) Fiber Mass:  21.60%             20.00% - 22.00%           PASS
+Moisture Regain Rate:        7.82%              Max 8.50% (ISO 5077)      PASS
+Total Inbound Weighed Net:   9,920.00 KG        Transit Tare: -80 KG      PASS
+Harmful Chemicals / Azo:     None Detected      GRS Level 1 Standard      PASS
+
+CHAIN OF CUSTODY CERTIFICATION:
+- Standard: Textile Exchange Recycled Claim Standard (RCS v2.0)
+- Scope Certificate: CU-881920-RCS (Valid through 31-DEC-2026)
+- Auditing Body: Control Union Certifications B.V.
+
+AUDITOR CONCLUSION:
+The submitted material satisfies the mass conservation criteria and fiber composition tolerances under ISO 22095:2020 and AATCC 20A. Eligible for 1:1 Textile Recycling Credit (TRC) issuance upon spinning reconciliation.
+
+AUTHORIZED SIGNATORY:
+Dr. K. S. Ramanathan, Lead Textile Chemist, Intertek Testing Services
+================================================================================
